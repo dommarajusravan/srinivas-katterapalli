@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="te">
-<head>
+<html lang="te"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>నిర్వహణ – కవిత్వ సంకలనం</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Tiro+Telugu:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Telugu:ital@0;1&amp;family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -158,7 +157,7 @@ main{position:relative;z-index:10;max-width:780px;margin:0 auto;padding:2rem 1.5
 
 <main>
   <!-- PIN GATE -->
-  <div class="gate-wrap" id="gate-section">
+  <div class="gate-wrap" id="gate-section" style="display: none;">
     <div class="gate-card">
       <span class="gate-icon">🔐</span>
       <div class="gate-subtitle">నిర్వహణ విభాగం తెరవడానికి PIN నమోదు చేయండి</div>
@@ -170,13 +169,13 @@ main{position:relative;z-index:10;max-width:780px;margin:0 auto;padding:2rem 1.5
   </div>
 
   <!-- ADMIN PANEL -->
-  <div id="admin-section" style="display:none;">
+  <div id="admin-section" style="display: block;">
 
     <!-- GitHub -->
     <div class="card">
       <div class="card-header">
         <span class="card-title">GitHub అనుసంధానం</span>
-        <a class="help-link" href="https://github.com/settings/tokens/new?scopes=repo&description=Kavithalu+Admin" target="_blank">Token తయారు చేయండి ↗</a>
+        <a class="help-link" href="https://github.com/settings/tokens/new?scopes=repo&amp;description=Kavithalu+Admin" target="_blank">Token తయారు చేయండి ↗</a>
       </div>
       <div class="card-body">
         <div class="setup-grid">
@@ -191,7 +190,7 @@ main{position:relative;z-index:10;max-width:780px;margin:0 auto;padding:2rem 1.5
             <button class="btn btn-ghost" onclick="testConnection()" style="flex-shrink:0;">పరీక్షించు</button>
           </div>
         </div>
-        <div class="status-row"><div class="dot" id="conn-dot"></div><span id="conn-status">అనుసంధానం పరీక్షించబడలేదు</span></div>
+        <div class="status-row"><div class="dot green" id="conn-dot"></div><span id="conn-status">✓ అనుసంధానం విజయవంతం! (@dommarajusravan)</span></div>
         <div class="info-box">🔐 Token మీ browser లో మాత్రమే నిల్వ చేయబడుతుంది (localStorage). GitHub API కి నేరుగా పంపబడుతుంది.</div>
       </div>
     </div>
@@ -204,7 +203,8 @@ main{position:relative;z-index:10;max-width:780px;margin:0 auto;padding:2rem 1.5
         <div class="field"><label>శీర్షిక</label><input type="text" id="new-title" placeholder="కవిత శీర్షిక..."></div>
         <div class="field">
           <label>కవిత / సూక్తి</label>
-          <textarea id="new-body" placeholder="కవిత ఇక్కడ రాయండి...&#10;ప్రతి పంక్తి కొత్త లైన్‌లో రాయండి"></textarea>
+          <textarea id="new-body" placeholder="కవిత ఇక్కడ రాయండి...
+ప్రతి పంక్తి కొత్త లైన్‌లో రాయండి"></textarea>
           <div class="field-hint">ప్రతి పంక్తి కొత్త లైన్‌లో రాయండి</div>
         </div>
         <div class="field"><label>తేదీ (ఐచ్ఛికం)</label><input type="text" id="new-date" placeholder="ఉదా: 7 మే 2026"></div>
@@ -219,10 +219,10 @@ main{position:relative;z-index:10;max-width:780px;margin:0 auto;padding:2rem 1.5
     <div class="card">
       <div class="card-header">
         <span class="card-title">ఇప్పటి కవితలు</span>
-        <span id="poem-count" style="font-size:12px;color:var(--ink3);"></span>
+        <span id="poem-count" style="font-size:12px;color:var(--ink3);">7 కవితలు</span>
       </div>
       <div class="card-body" style="padding-top:.75rem;padding-bottom:.75rem;">
-        <div id="admin-poem-list"></div>
+        <div id="admin-poem-list"><div class="poem-row"><div class="poem-row-num">1</div><div class="poem-row-info"><div class="poem-row-title">నర సింహ స్తుతి</div><div class="poem-row-date">30 ఏప్రిల్ 2026</div></div><div class="poem-row-actions"><button class="btn-edit" onclick="openEditModal(0)">✏️ సవరించు</button><button class="btn-danger" onclick="deletePoem(0)">తొలగించు</button></div></div><div class="poem-row"><div class="poem-row-num">2</div><div class="poem-row-info"><div class="poem-row-title">(శీర్షిక లేదు)</div></div><div class="poem-row-actions"><button class="btn-edit" onclick="openEditModal(1)">✏️ సవరించు</button><button class="btn-danger" onclick="deletePoem(1)">తొలగించు</button></div></div><div class="poem-row"><div class="poem-row-num">3</div><div class="poem-row-info"><div class="poem-row-title">(శీర్షిక లేదు)</div><div class="poem-row-date">01 మే 2025</div></div><div class="poem-row-actions"><button class="btn-edit" onclick="openEditModal(2)">✏️ సవరించు</button><button class="btn-danger" onclick="deletePoem(2)">తొలగించు</button></div></div><div class="poem-row"><div class="poem-row-num">4</div><div class="poem-row-info"><div class="poem-row-title">(శీర్షిక లేదు)</div></div><div class="poem-row-actions"><button class="btn-edit" onclick="openEditModal(3)">✏️ సవరించు</button><button class="btn-danger" onclick="deletePoem(3)">తొలగించు</button></div></div><div class="poem-row"><div class="poem-row-num">5</div><div class="poem-row-info"><div class="poem-row-title">(శీర్షిక లేదు)</div><div class="poem-row-date">15 మార్చి 2026</div></div><div class="poem-row-actions"><button class="btn-edit" onclick="openEditModal(4)">✏️ సవరించు</button><button class="btn-danger" onclick="deletePoem(4)">తొలగించు</button></div></div><div class="poem-row"><div class="poem-row-num">6</div><div class="poem-row-info"><div class="poem-row-title">(శీర్షిక లేదు)</div><div class="poem-row-date">14 మార్చి 2026</div></div><div class="poem-row-actions"><button class="btn-edit" onclick="openEditModal(5)">✏️ సవరించు</button><button class="btn-danger" onclick="deletePoem(5)">తొలగించు</button></div></div><div class="poem-row"><div class="poem-row-num">7</div><div class="poem-row-info"><div class="poem-row-title">(శీర్షిక లేదు)</div><div class="poem-row-date">12 మార్చి 2026</div></div><div class="poem-row-actions"><button class="btn-edit" onclick="openEditModal(6)">✏️ సవరించు</button><button class="btn-danger" onclick="deletePoem(6)">తొలగించు</button></div></div></div>
       </div>
     </div>
 
@@ -231,8 +231,8 @@ main{position:relative;z-index:10;max-width:780px;margin:0 auto;padding:2rem 1.5
       <div class="card-header"><span class="card-title">GitHub లో పబ్లిష్ చేయండి</span></div>
       <div class="card-body">
         <p style="font-size:14px;color:var(--ink3);line-height:1.75;margin-bottom:1.25rem;">బటన్ నొక్కితే కవితలు నేరుగా GitHub కి పంపబడతాయి. వెబ్‌సైట్ 1–2 నిమిషాలలో అప్‌డేట్ అవుతుంది — download/upload అక్కర్లేదు!</p>
-        <button class="btn-publish" id="publish-btn" onclick="publishToGitHub()"><span>🚀</span> GitHub లో పబ్లిష్ చేయి</button>
-        <div class="publish-log" id="publish-log"></div>
+        <button class="btn-publish" id="publish-btn" onclick="publishToGitHub()" disabled=""><span>⏳</span> పబ్లిష్ అవుతోంది...</button>
+        <div class="publish-log" id="publish-log" style="display: block;"><span class="log-line log-info">⟳ index.html తయారు చేస్తున్నాం...</span><span class="log-line log-ok">✓ index.html పబ్లిష్ అయింది</span><span class="log-line log-info">⟳ admin.html పబ్లిష్ చేస్తున్నాం...</span></div>
       </div>
     </div>
 
@@ -291,7 +291,142 @@ main{position:relative;z-index:10;max-width:780px;margin:0 auto;padding:2rem 1.5
 
 <script>
 var poems = [
-  {"id":1,"title":"నర సింహ స్తుతి","lines":["చతుర్దావతార పురుషుడు","నర సింహ స్వరూపుడు","భక్తప్రహ్లాద వరదుడు","భవబంధన విముక్తుడు","సర్వలోక పాలకుడు","సాధు జన రక్షకునికి","జయము జయము ...."],"author":"కత్తెరపల్లి శ్రీనివాసులు రెడ్డి","date":"30 ఏప్రిల్ 2026"}
+  {
+    "id": 1,
+    "title": "నర సింహ స్తుతి",
+    "lines": [
+      "చతుర్దావతార పురుషుడు",
+      "నర సింహ స్వరూపుడు",
+      "భక్తప్రహ్లాద వరదుడు",
+      "భవబంధన విముక్తుడు",
+      "సర్వలోక పాలకుడు",
+      "సాధు జన రక్షకునికి",
+      "జయము జయము ...."
+    ],
+    "author": "కత్తెరపల్లి శ్రీనివాసులు రెడ్డి",
+    "date": "30 ఏప్రిల్ 2026"
+  },
+  {
+    "id": 1778188915715,
+    "title": "",
+    "lines": [
+      "తెలుగు తేనెల తీయదనం",
+      "తేరగనే రాలేదని,",
+      "వాసనలారని వన్నెతగ్గని",
+      "చక్కని పదాలు,",
+      "నన్నయ తిక్కన ఎర్రన మొదలు,",
+      "మీదాక నాదాక నేటిదాక",
+      "ప్రతినోట వూరివూరి",
+      "ఊటలై పారగా వచ్చిందే....."
+    ],
+    "author": "కత్తెరపల్లి శ్రీనివాసులు రెడ్డి",
+    "date": ""
+  },
+  {
+    "id": 1778188955975,
+    "title": "",
+    "lines": [
+      "సుత్తి కొడవలి చేతబట్టి",
+      "ఎర్ర కండువా తలకు చుట్టి",
+      "సంఘటితమై చేయి కలిపి",
+      "శ్రమను నమ్మి దుమ్ము పీల్చి",
+      "ఎండ వానను లెక్కచేయక",
+      "కొండనైనా పిండిజేసి",
+      "పిడికెలెత్తి గొంతు కలిపే...",
+      "అందరు కార్మిక సోదరసోదరీమణులకు...",
+      "లాల్ సలామ్..."
+    ],
+    "author": "కత్తెరపల్లి శ్రీనివాసులు రెడ్డి",
+    "date": "01 మే 2025"
+  },
+  {
+    "id": 1778188966292,
+    "title": "",
+    "lines": [
+      "చిన్నతనం దాటాక",
+      "సిగ్గన్నది పోయాక",
+      "అల్లరై పోతావోయ్",
+      "ఆలోచన పడతావోయ్",
+      "చిల్లర లేకుంటే....",
+      "మూతులు ముడుచుకొని",
+      "చేతులు మడుచుకొని",
+      "ముక్తసరి మాటలతో",
+      "ముఖమును చాటేస్తే .....",
+      "అల్లరై పోతావోయ్",
+      "చిల్లర లేకుంటే....",
+      "అది అంతరాలను తాకి",
+      "మధ్యరాతిరిలో లేపేస్తుంది",
+      "ఎక్కి యేడ్చేలా యేకేస్తుంది.....",
+      "కల్పితపు మాటల గొప్ప కవివైనా",
+      "చెక్కి చక్కని బొమ్మను నిలిపే శిల్పివైనా",
+      "అల్లరై పోతావోయ్",
+      "చేత చిల్లర లేకుంటే......"
+    ],
+    "author": "కత్తెరపల్లి శ్రీనివాసులు రెడ్డి",
+    "date": ""
+  },
+  {
+    "id": 1778188982292,
+    "title": "",
+    "lines": [
+      "వచ్చిందే మెరుపుతీగ",
+      "ఒళ్లంతా సుగంధ శోభ...",
+      "మెడమీదకు రింగుల జుట్టు",
+      "ఆ కిందన పచ్చబొట్టు",
+      "వీపేమో అద్దపు బిల్ల",
+      "యే వూరిదొ అందపు పిల్ల",
+      "మాటేమో అగ్గిపుల్ల",
+      "చెప్పరావే నీదే జిల్లా",
+      "చారడేసి కళ్లున్నాయే",
+      "ముత్యమంటి పళ్లున్నాయే",
+      "కన్నారా చూసిందిరా",
+      "కనికట్టు చేసిందిరా",
+      "మాటెట్టా కలపాలిరో",
+      "మనువెట్టా ఆడాలిరో...",
+      "... కత్తెరపల్లి శ్రీనివాసులు రెడ్డి"
+    ],
+    "author": "కత్తెరపల్లి శ్రీనివాసులు రెడ్డి",
+    "date": "15 మార్చి 2026"
+  },
+  {
+    "id": 1778188998692,
+    "title": "",
+    "lines": [
+      "ఇద్దరి పొందున్ననూ",
+      "విరహపు విందేలరా..",
+      "నిద్దురరాని నిశీధి రాత్రుల",
+      "ఇటటాయనే యిరుకున నీవేలరా...",
+      "దేవేరులిరువురు దయగల తల్లులు",
+      "నీవొక్కనివే వారికి నాలుగు కన్నులు...",
+      "ఇద్దరి పొందున్ననూ",
+      "విరహపు విందేలరా...ఆనంద నిలయా...",
+      "... కత్తెరపల్లి శ్రీనివాసులు రెడ్డి"
+    ],
+    "author": "కత్తెరపల్లి శ్రీనివాసులు రెడ్డి",
+    "date": "14 మార్చి 2026"
+  },
+  {
+    "id": 1778189015325,
+    "title": "",
+    "lines": [
+      "ఎత్తుగాలి మల్లింది",
+      "ఎత్తుకెళ్లి పోతోంది",
+      "పత్తి చేను గట్టుమీద",
+      "ఎంకి పైట ఎగిరింది",
+      "గోదారి గట్టునున్నా",
+      "గొంతారి పోతోంది",
+      "...ఎత్తుగాలి మల్లింది...",
+      "మల్లెపూల కాలమొచ్చి",
+      "మనసు కాస్త తుల్లిందే",
+      "పల్లెమాట గుర్తుకొచ్చి",
+      "నా పలుకు ఆగిందే",
+      "..ఎత్తుగాలి మల్లింది",
+      "ఏదేదొ అంటోంది.....",
+      "... కత్తెరపల్లి శ్రీనివాసులు రెడ్డి"
+    ],
+    "author": "కత్తెరపల్లి శ్రీనివాసులు రెడ్డి",
+    "date": "12 మార్చి 2026"
+  }
 ];
 var ADMIN_PIN = "1234";
 var editIndex = -1;
@@ -436,5 +571,6 @@ function buildAdminHTML(){
   return '<!DOCTYPE html>\n'+src;
 }
 </script>
-</body>
-</html>
+
+
+</body></html>
