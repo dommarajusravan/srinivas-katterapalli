@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>నిర్వహణ – కవిత్వ సంకలనం</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Telugu:ital@0;1&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #faf9f6; --surface: #fff; --border: rgba(0,0,0,0.09); --border-strong: rgba(0,0,0,0.16);
+    --text: #1a1a1a; --text-muted: #6b6560; --text-faint: #a09890;
+    --accent: #7c5c3a; --accent-bg: #f5ede3;
+    --red: #b94040; --red-bg: #fdf0f0; --green: #2e6e2e; --green-bg: #eaf5ea;
+    --radius: 14px; --shadow: 0 2px 20px rgba(0,0,0,0.07);
+  }
+  body { background: var(--bg); color: var(--text); font-family: 'Cormorant Garamond', Georgia, serif; min-height: 100vh; }
+
+  header { text-align: center; padding: 2.5rem 1rem 1.75rem; max-width: 700px; margin: 0 auto; border-bottom: 0.5px solid var(--border); }
+  .eyebrow { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.4rem; }
+  .main-title { font-size: 20px; font-weight: 500; color: var(--text); margin-top: 0.25rem; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); text-decoration: none; margin-top: 0.75rem; transition: color 0.15s; }
+  .back-link:hover { color: var(--accent); }
+
+  main { max-width: 700px; margin: 0 auto; padding: 2rem 1rem 5rem; }
+
+  .gate-wrap { display: flex; align-items: center; justify-content: center; min-height: 60vh; }
+  .gate-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 3rem 2.5rem; text-align: center; width: 100%; max-width: 360px; }
+  .gate-icon { font-size: 28px; margin-bottom: 1rem; opacity: 0.4; }
+  .gate-title { font-size: 16px; color: var(--text-muted); margin-bottom: 1.75rem; }
+  .pin-input { border: 0.5px solid var(--border-strong); border-radius: 10px; padding: 10px 16px; font-size: 22px; width: 160px; font-family: monospace; background: var(--surface); color: var(--text); text-align: center; letter-spacing: 0.35em; display: block; margin: 0 auto 1rem; }
+  .pin-input:focus { outline: none; border-color: var(--accent); }
+  .hint { font-size: 12px; color: var(--text-faint); margin-top: 1.25rem; }
+
+  .btn { border-radius: 9px; padding: 9px 22px; font-size: 14px; cursor: pointer; font-family: 'Cormorant Garamond', serif; letter-spacing: 0.05em; border: none; transition: opacity 0.15s, background 0.15s; display: inline-flex; align-items: center; gap: 6px; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { opacity: 0.87; }
+  .btn-primary:disabled { opacity: 0.4; cursor: default; }
+  .btn-secondary { background: none; border: 0.5px solid var(--border-strong); color: var(--text-muted); }
+  .btn-secondary:hover { background: var(--accent-bg); }
+  .btn-danger { background: none; border: 0.5px solid #e8c0c0; color: var(--red); padding: 5px 12px; font-size: 12px; border-radius: 7px; cursor: pointer; font-family: 'Cormorant Garamond', serif; }
+  .btn-danger:hover { background: var(--red-bg); }
+  .btn-publish { background: #2a6e2a; color: #fff; width: 100%; padding: 12px; font-size: 15px; border-radius: 10px; border: none; cursor: pointer; font-family: 'Tiro Telugu', serif; transition: opacity 0.15s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .btn-publish:hover { opacity: 0.87; }
+  .btn-publish:disabled { opacity: 0.4; cursor: default; }
+
+  .section { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+  .section-header { padding: 1.1rem 1.75rem; border-bottom: 0.5px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .section-title { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-faint); }
+  .section-body { padding: 1.5rem 1.75rem; }
+
+  .setup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .setup-status { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted); margin-top: 1rem; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-faint); flex-shrink: 0; }
+  .dot.green { background: #4caf50; }
+  .dot.red { background: var(--red); }
+  .dot.yellow { background: #f5a623; animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .help-link { font-size: 12px; color: var(--accent); text-decoration: none; }
+  .help-link:hover { text-decoration: underline; }
+  .token-row { display: flex; gap: 8px; }
+  .token-row input { flex: 1; }
+
+  .field { margin-bottom: 1.2rem; }
+  .field label { display: block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+  .field input, .field textarea { width: 100%; border: 0.5px solid var(--border-strong); border-radius: 9px; padding: 9px 13px; font-family: 'Tiro Telugu', serif; font-size: 17px; color: var(--text); background: var(--surface); resize: vertical; }
+  .field input:focus, .field textarea:focus { outline: none; border-color: var(--accent); }
+  .field textarea { min-height: 170px; line-height: 2; }
+  .field-hint { font-size: 12px; color: var(--text-faint); margin-top: 5px; }
+  .form-actions { display: flex; gap: 10px; margin-top: 1.5rem; flex-wrap: wrap; }
+
+  .banner { border-radius: 8px; font-size: 13px; padding: 10px 14px; margin-bottom: 1.2rem; display: none; }
+  .banner-success { background: var(--green-bg); border: 0.5px solid #a8d5a8; color: var(--green); }
+  .error-msg { color: var(--red); font-size: 13px; margin-top: 8px; min-height: 18px; }
+
+  .poem-row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 0.5px solid var(--border); }
+  .poem-row:last-child { border-bottom: none; }
+  .poem-row-num { font-size: 12px; color: var(--text-faint); min-width: 22px; }
+  .poem-row-info { flex: 1; }
+  .poem-row-title { font-family: 'Tiro Telugu', serif; font-size: 17px; color: var(--text); }
+  .poem-row-date { font-family: 'Tiro Telugu', serif; font-size: 12px; color: var(--text-faint); margin-top: 2px; }
+  .empty-list { text-align: center; color: var(--text-faint); font-size: 14px; padding: 1.5rem 0; }
+
+  .publish-log { margin-top: 1rem; background: #f4f4f0; border-radius: 8px; padding: 12px; font-size: 12px; font-family: monospace; color: var(--text-muted); line-height: 1.8; display: none; max-height: 160px; overflow-y: auto; }
+  .log-line { display: block; }
+  .log-ok { color: var(--green); }
+  .log-err { color: var(--red); }
+
+  .pin-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .pin-row input { border: 0.5px solid var(--border-strong); border-radius: 9px; padding: 8px 12px; font-size: 15px; font-family: monospace; background: var(--surface); color: var(--text); text-align: center; letter-spacing: 0.2em; width: 130px; }
+  .pin-row input:focus { outline: none; border-color: var(--accent); }
+
+  .guide-step { display: flex; gap: 12px; margin-bottom: 0.85rem; align-items: flex-start; }
+  .step-num { min-width: 22px; height: 22px; border-radius: 50%; background: var(--accent-bg); color: var(--accent); font-size: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .step-text { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+  .step-text code { background: var(--accent-bg); color: var(--accent); padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+
+  @media (max-width: 520px) {
+    .setup-grid { grid-template-columns: 1fr; }
+    .section-body, .section-header { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .gate-card { padding: 2rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">నిర్వహణ విభాగం</div>
+  <div class="main-title">కవిత్వ సంకలనం</div>
+  <a href="index.html" class="back-link">← పుస్తకానికి వెళ్ళు</a>
+</header>
+
+<main>
+  <!-- PIN GATE -->
+  <div class="gate-wrap" id="gate-section">
+    <div class="gate-card">
+      <div class="gate-icon">🔒</div>
+      <div class="gate-title">PIN నమోదు చేయండి</div>
+      <input type="password" class="pin-input" id="pin-input" placeholder="••••" maxlength="6"
+        onkeydown="if(event.key==='Enter')checkPin()">
+      <button class="btn btn-primary" onclick="checkPin()">తెరువు</button>
+      <div class="error-msg" id="pin-error"></div>
+      <div class="hint">డిఫాల్ట్ PIN: <strong>1234</strong></div>
+    </div>
+  </div>
+
+  <!-- ADMIN PANEL -->
+  <div id="admin-section" style="display:none;">
+
+    <!-- GitHub Setup -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-title">GitHub అనుసంధానం</span>
+        <a class="help-link" href="https://github.com/settings/tokens/new?scopes=repo&description=Kavithalu+Admin" target="_blank">Token తయారు చేయండి ↗</a>
+      </div>
+      <div class="section-body">
+        <div class="setup-grid">
+          <div class="field" style="margin:0;">
+            <label>GitHub Username</label>
+            <input type="text" id="gh-user" placeholder="yourusername" oninput="saveGHConfig()">
+          </div>
+          <div class="field" style="margin:0;">
+            <label>Repository పేరు</label>
+            <input type="text" id="gh-repo" placeholder="kavithalu" oninput="saveGHConfig()">
+          </div>
+        </div>
+        <div class="field" style="margin-top:12px;">
+          <label>Personal Access Token <span style="font-size:10px;color:var(--text-faint);text-transform:none;letter-spacing:0;margin-left:6px;">(repo scope అవసరం)</span></label>
+          <div class="token-row">
+            <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" oninput="saveGHConfig()">
+            <button class="btn btn-secondary" onclick="toggleToken()" style="flex-shrink:0;padding:8px 14px;">👁</button>
+            <button class="btn btn-secondary" onclick="testConnection()" style="flex-shrink:0;">పరీక్షించు</button>
+          </div>
+        </div>
+        <div class="setup-status">
+          <div class="dot" id="conn-dot"></div>
+          <span id="conn-status">అనుసంధానం పరీక్షించబడలేదు</span>
+        </div>
+        <div style="margin-top:1rem;padding:1rem;background:var(--accent-bg);border-radius:8px;font-size:13px;color:var(--text-muted);line-height:1.7;">
+          🔐 Token మీ browser లో మాత్రమే నిల్వ చేయబడుతుంది. GitHub కి నేరుగా పంపబడుతుంది — మన server కి వెళ్ళదు.
+        </div>
+      </div>
+    </div>
+
+    <!-- Add poem -->
+    <div class="section">
+      <div class="section-header"><span class="section-title">కొత్త కవిత జోడించండి</span></div>
+      <div class="section-body">
+        <div class="banner banner-success" id="add-success">✓ కవిత జోడించబడింది — ఇప్పుడు పబ్లిష్ చేయండి!</div>
+        <div class="field">
+          <label>శీర్షిక</label>
+          <input type="text" id="new-title" placeholder="కవిత శీర్షిక...">
+        </div>
+        <div class="field">
+          <label>కవిత / సూక్తి</label>
+          <textarea id="new-body" placeholder="కవిత ఇక్కడ రాయండి...&#10;ప్రతి పంక్తి కొత్త లైన్‌లో రాయండి"></textarea>
+          <div class="field-hint">ప్రతి పంక్తి కొత్త లైన్‌లో రాయండి</div>
+        </div>
+        <div class="field">
+          <label>తేదీ (ఐచ్ఛికం)</label>
+          <input type="text" id="new-date" placeholder="ఉదా: 7 మే 2026">
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" onclick="addPoem()">జోడించు</button>
+          <button class="btn btn-secondary" onclick="clearForm()">రద్దు చేయి</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Poem list -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-title">ఇప్పటి కవితలు</span>
+        <span id="poem-count" style="font-size:12px;color:var(--text-faint);"></span>
+      </div>
+      <div class="section-body" style="padding-top:0.5rem;padding-bottom:0.5rem;">
+        <div id="admin-poem-list"></div>
+      </div>
+    </div>
+
+    <!-- Publish -->
+    <div class="section">
+      <div class="section-header"><span class="section-title">GitHub లో పబ్లిష్ చేయండి</span></div>
+      <div class="section-body">
+        <p style="font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:1.25rem;">
+          కింద బటన్ నొక్కితే కవితలు నేరుగా GitHub కి పంపబడతాయి. వెబ్‌సైట్ 1–2 నిమిషాలలో అప్‌డేట్ అవుతుంది — download/upload అక్కర్లేదు!
+        </p>
+        <button class="btn-publish" id="publish-btn" onclick="publishToGitHub()">
+          <span>🚀</span> GitHub లో పబ్లిష్ చేయి
+        </button>
+        <div class="publish-log" id="publish-log"></div>
+      </div>
+    </div>
+
+    <!-- First time guide -->
+    <div class="section">
+      <div class="section-header"><span class="section-title">మొదటిసారి సెటప్ గైడ్</span></div>
+      <div class="section-body">
+        <div class="guide-step"><div class="step-num">1</div><div class="step-text">github.com లో ఉచిత అకౌంట్ తెరవండి (ఉంటే స్కిప్)</div></div>
+        <div class="guide-step"><div class="step-num">2</div><div class="step-text">New Repository → పేరు: <code>kavithalu</code> → <strong>Public</strong> → Create repository</div></div>
+        <div class="guide-step"><div class="step-num">3</div><div class="step-text">పైన "Token తయారు చేయండి ↗" నొక్కి → Note: <code>Kavithalu Admin</code> → Expiration: No expiration → Scope: <code>repo</code> చెక్ → Generate → కాపీ</div></div>
+        <div class="guide-step"><div class="step-num">4</div><div class="step-text">GitHub అనుసంధానం లో Username, Repo (<code>kavithalu</code>), Token నమోదు → పరీక్షించు</div></div>
+        <div class="guide-step"><div class="step-num">5</div><div class="step-text">పబ్లిష్ నొక్కండి → Repository → Settings → Pages → Branch: <code>main</code> → Save (ఒక్కసారి మాత్రమే)</div></div>
+        <div class="guide-step"><div class="step-num">6</div><div class="step-text">మీ వెబ్‌సైట్: <code>yourusername.github.io/kavithalu</code> — ఇకపై పబ్లిష్ బటన్ మాత్రమే!</div></div>
+      </div>
+    </div>
+
+    <!-- Change PIN -->
+    <div class="section">
+      <div class="section-header"><span class="section-title">PIN మార్చండి</span></div>
+      <div class="section-body">
+        <div class="pin-row">
+          <input type="password" id="new-pin" placeholder="కొత్త PIN" maxlength="6">
+          <input type="password" id="confirm-pin" placeholder="మళ్ళీ రాయండి" maxlength="6">
+          <button class="btn btn-secondary" onclick="changePin()">మార్చు</button>
+        </div>
+        <div class="error-msg" id="pin-change-msg"></div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+var poems = [
+  {
+    "id": 1,
+    "title": "నర సింహ స్తుతి",
+    "lines": ["చతుర్దావతార పురుషుడు","నర సింహ స్వరూపుడు","భక్తప్రహ్లాద వరదుడు","భవబంధన విముక్తుడు","సర్వలోక పాలకుడు","సాధు జన రక్షకునికి","జయము జయము ...."],
+    "author": "కత్తెరపల్లి శ్రీనివాసులు రెడ్డి",
+    "date": "30 ఏప్రిల్ 2026"
+  }
+];
+var ADMIN_PIN = "1234";
+
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function flash(id,dur){ var el=document.getElementById(id); el.style.display='block'; setTimeout(function(){ el.style.display='none'; },dur||3000); }
+
+// PIN
+function checkPin(){
+  if(document.getElementById('pin-input').value===ADMIN_PIN){
+    document.getElementById('gate-section').style.display='none';
+    document.getElementById('admin-section').style.display='block';
+    loadGHConfig(); renderAdminList();
+  } else { document.getElementById('pin-error').textContent='తప్పు PIN. మళ్ళీ ప్రయత్నించండి.'; }
+}
+function changePin(){
+  var np=document.getElementById('new-pin').value.trim();
+  var cp=document.getElementById('confirm-pin').value.trim();
+  var msg=document.getElementById('pin-change-msg');
+  if(!np||np.length<4){ msg.style.color='var(--red)'; msg.textContent='కనీసం 4 అంకెలు రాయండి'; return; }
+  if(np!==cp){ msg.style.color='var(--red)'; msg.textContent='రెండు PIN లు సమానంగా లేవు'; return; }
+  ADMIN_PIN=np; msg.style.color='var(--green)'; msg.textContent='PIN మార్చబడింది! పబ్లిష్ చేయండి.';
+  document.getElementById('new-pin').value=''; document.getElementById('confirm-pin').value='';
+}
+
+// GitHub config
+function saveGHConfig(){
+  localStorage.setItem('gh_user', document.getElementById('gh-user').value.trim());
+  localStorage.setItem('gh_repo', document.getElementById('gh-repo').value.trim());
+  localStorage.setItem('gh_token', document.getElementById('gh-token').value.trim());
+}
+function loadGHConfig(){
+  document.getElementById('gh-user').value  = localStorage.getItem('gh_user')  || '';
+  document.getElementById('gh-repo').value  = localStorage.getItem('gh_repo')  || 'kavithalu';
+  document.getElementById('gh-token').value = localStorage.getItem('gh_token') || '';
+}
+function getGHConfig(){
+  return { user: localStorage.getItem('gh_user')||'', repo: localStorage.getItem('gh_repo')||'kavithalu', token: localStorage.getItem('gh_token')||'' };
+}
+function toggleToken(){
+  var i=document.getElementById('gh-token'); i.type=i.type==='password'?'text':'password';
+}
+async function testConnection(){
+  var cfg=getGHConfig(); var dot=document.getElementById('conn-dot'); var st=document.getElementById('conn-status');
+  dot.className='dot yellow'; st.textContent='పరీక్షిస్తున్నాం...';
+  if(!cfg.user||!cfg.token){ dot.className='dot red'; st.textContent='Username మరియు Token నమోదు చేయండి'; return; }
+  try {
+    var res=await fetch('https://api.github.com/user',{headers:{'Authorization':'token '+cfg.token,'Accept':'application/vnd.github.v3+json'}});
+    if(res.ok){ var d=await res.json(); dot.className='dot green'; st.textContent='✓ అనుసంధానం విజయవంతం! (@'+d.login+')'; }
+    else { dot.className='dot red'; st.textContent='✗ Token తప్పు లేదా గడువు తీరింది'; }
+  } catch(e){ dot.className='dot red'; st.textContent='✗ నెట్‌వర్క్ లోపం'; }
+}
+
+// Poems
+function renderAdminList(){
+  var list=document.getElementById('admin-poem-list'); list.innerHTML='';
+  document.getElementById('poem-count').textContent=poems.length+' కవితలు';
+  if(!poems.length){ list.innerHTML='<div class="empty-list">కవితలు ఏవీ లేవు</div>'; return; }
+  poems.forEach(function(p,i){
+    var row=document.createElement('div'); row.className='poem-row';
+    row.innerHTML='<span class="poem-row-num">'+(i+1)+'</span><div class="poem-row-info"><div class="poem-row-title">'+esc(p.title||'(శీర్షిక లేదు)')+'</div>'+(p.date?'<div class="poem-row-date">'+esc(p.date)+'</div>':'')+'</div><button class="btn-danger" onclick="deletePoem('+i+')">తొలగించు</button>';
+    list.appendChild(row);
+  });
+}
+function addPoem(){
+  var title=document.getElementById('new-title').value.trim();
+  var body=document.getElementById('new-body').value.trim();
+  var date=document.getElementById('new-date').value.trim();
+  if(!body){ alert('కవిత రాయండి!'); return; }
+  var lines=body.split('\n').map(function(l){return l.trim();}).filter(Boolean);
+  poems.push({id:Date.now(),title:title,lines:lines,author:'కత్తెరపల్లి శ్రీనివాసులు రెడ్డి',date:date});
+  renderAdminList(); clearForm(); flash('add-success',4000);
+}
+function deletePoem(idx){
+  if(poems.length===1){alert('కనీసం ఒక కవిత ఉండాలి!');return;}
+  if(!confirm('ఈ కవిత తొలగించాలా?'))return;
+  poems.splice(idx,1); renderAdminList();
+}
+function clearForm(){
+  document.getElementById('new-title').value='';
+  document.getElementById('new-body').value='';
+  document.getElementById('new-date').value='';
+}
+
+// Publish
+function addLog(msg,cls){
+  var box=document.getElementById('publish-log'); box.style.display='block';
+  var line=document.createElement('span'); line.className='log-line'+(cls?' '+cls:''); line.textContent=msg;
+  box.appendChild(line); box.scrollTop=box.scrollHeight;
+}
+
+async function ghPutFile(cfg,path,content,message){
+  var url='https://api.github.com/repos/'+cfg.user+'/'+cfg.repo+'/contents/'+path;
+  var sha=null;
+  try{ var gr=await fetch(url,{headers:{'Authorization':'token '+cfg.token,'Accept':'application/vnd.github.v3+json'}}); if(gr.ok){var gd=await gr.json();sha=gd.sha;} }catch(e){}
+  var body={message:message,content:btoa(unescape(encodeURIComponent(content)))};
+  if(sha)body.sha=sha;
+  var pr=await fetch(url,{method:'PUT',headers:{'Authorization':'token '+cfg.token,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!pr.ok){var err=await pr.json();throw new Error(err.message||pr.status);}
+  return pr;
+}
+
+async function publishToGitHub(){
+  var cfg=getGHConfig();
+  var box=document.getElementById('publish-log'); box.innerHTML=''; box.style.display='block';
+  var btn=document.getElementById('publish-btn'); btn.disabled=true; btn.innerHTML='<span>⏳</span> పబ్లిష్ అవుతోంది...';
+  if(!cfg.user||!cfg.repo||!cfg.token){ addLog('✗ GitHub Username, Repo మరియు Token నమోదు చేయండి','log-err'); btn.disabled=false; btn.innerHTML='<span>🚀</span> GitHub లో పబ్లిష్ చేయి'; return; }
+  try{
+    var ts=new Date().toLocaleDateString('te-IN');
+    addLog('⟳ index.html తయారు చేస్తున్నాం...');
+    await ghPutFile(cfg,'index.html',buildIndexHTML(),'కవితలు అప్‌డేట్ ('+ts+')');
+    addLog('✓ index.html పబ్లిష్ అయింది','log-ok');
+    addLog('⟳ admin.html పబ్లిష్ చేస్తున్నాం...');
+    await ghPutFile(cfg,'admin.html',buildAdminHTML(),'Admin అప్‌డేట్ ('+ts+')');
+    addLog('✓ admin.html పబ్లిష్ అయింది','log-ok');
+    addLog('🎉 విజయవంతం! 1–2 నిమిషాలలో లైవ్ అవుతుంది.','log-ok');
+    addLog('🌐 https://'+cfg.user+'.github.io/'+cfg.repo,'log-ok');
+  }catch(e){
+    addLog('✗ లోపం: '+e.message,'log-err');
+    addLog('Token కి repo permission ఉందో చూడండి.','log-err');
+  }
+  btn.disabled=false; btn.innerHTML='<span>🚀</span> GitHub లో పబ్లిష్ చేయి';
+}
+
+// HTML builders
+function buildIndexHTML(){
+  var pj=JSON.stringify(poems,null,2);
+  return '<!DOCTYPE html>\n<html lang="te">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>పద్య మాలిక \u2013 కత్తెరపల్లి శ్రీనివాసులు రెడ్డి</title>\n<link rel="preconnect" href="https://fonts.googleapis.com">\n<link href="https://fonts.googleapis.com/css2?family=Tiro+Telugu:ital@0;1&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">\n<style>\n*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}\n:root{--bg:#faf9f6;--surface:#fff;--border:rgba(0,0,0,0.09);--border-strong:rgba(0,0,0,0.16);--text:#1a1a1a;--text-muted:#6b6560;--text-faint:#a09890;--accent:#7c5c3a;--accent-bg:#f5ede3;--radius:14px;--shadow:0 2px 20px rgba(0,0,0,0.07)}\nbody{background:var(--bg);color:var(--text);font-family:\'Cormorant Garamond\',Georgia,serif;min-height:100vh}\nheader{text-align:center;padding:3rem 1rem 2rem;max-width:640px;margin:0 auto;border-bottom:.5px solid var(--border)}\n.eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--text-faint);margin-bottom:.5rem}\n.ornament{letter-spacing:.4em;color:var(--text-faint);font-size:13px;margin:.6rem 0;opacity:.5}\n.main-title{font-family:\'Tiro Telugu\',serif;font-size:26px;font-weight:400;line-height:1.4}\n.sub-author{font-family:\'Tiro Telugu\',serif;font-size:15px;color:var(--text-muted);margin-top:.5rem}\nmain{max-width:640px;margin:0 auto;padding:2rem 1rem 5rem}\n.tab-bar{display:flex;border-bottom:.5px solid var(--border);margin-bottom:2rem}\n.tab{flex:1;padding:10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-align:center;cursor:pointer;color:var(--text-muted);border:none;border-bottom:1.5px solid transparent;background:none;font-family:\'Cormorant Garamond\',serif;transition:color .15s,border-color .15s}\n.tab.active{color:var(--text);border-bottom-color:var(--accent)}\n.book{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}\n.page{display:none;padding:2.5rem;min-height:380px;flex-direction:column;justify-content:space-between}\n.page.active{display:flex}\n.poem-label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-faint);text-align:center;margin-bottom:1.4rem}\n.divider{width:36px;height:.5px;background:var(--border-strong);margin:0 auto 1.6rem}\n.poem-title-text{font-family:\'Tiro Telugu\',serif;font-size:20px;color:var(--text);text-align:center;margin-bottom:1.6rem}\n.poem-body{font-family:\'Tiro Telugu\',serif;font-size:21px;line-height:2.1;color:var(--text);text-align:center;flex:1}\n.poem-body .line{display:block}\n.poem-meta{margin-top:2rem;text-align:right;border-top:.5px solid var(--border);padding-top:1rem}\n.poem-author-line{font-family:\'Tiro Telugu\',serif;font-size:14px;color:var(--text-muted)}\n.poem-date-line{font-family:\'Tiro Telugu\',serif;font-size:13px;color:var(--text-faint);margin-top:3px}\n.nav{display:flex;align-items:center;justify-content:space-between;padding:.85rem 2rem;border-top:.5px solid var(--border);background:var(--bg)}\n.nav-btn{background:none;border:.5px solid var(--border-strong);border-radius:8px;padding:6px 18px;font-size:13px;cursor:pointer;color:var(--text-muted);font-family:\'Cormorant Garamond\',serif;transition:background .15s,color .15s}\n.nav-btn:hover:not(:disabled){background:var(--accent-bg);color:var(--accent)}\n.nav-btn:disabled{opacity:.25;cursor:default}\n.page-count{font-size:12px;color:var(--text-faint);letter-spacing:.1em}\n.toc{padding:1.5rem 2rem}\n.toc-heading{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-faint);margin-bottom:1rem}\n.toc-item{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:.5px solid var(--border);cursor:pointer}\n.toc-item:last-child{border-bottom:none}\n.toc-num{font-size:12px;color:var(--text-faint);min-width:22px}\n.toc-name{font-family:\'Tiro Telugu\',serif;font-size:18px;color:var(--text);flex:1}\n.toc-date{font-family:\'Tiro Telugu\',serif;font-size:12px;color:var(--text-faint)}\n.toc-item:hover .toc-name{color:var(--accent)}\n@media(max-width:480px){header{padding:2rem 1rem 1.5rem}.main-title{font-size:20px}.page{padding:1.5rem}.poem-body{font-size:18px}.nav,.toc{padding-left:1.25rem;padding-right:1.25rem}}\n</style>\n</head>\n<body>\n<header>\n  <div class="eyebrow">కవిత్వ సంకలనం</div>\n  <div class="ornament">\u00b7 \u00b7 \u00b7</div>\n  <div class="main-title">పద్య మాలిక</div>\n  <div class="sub-author">కత్తెరపల్లి శ్రీనివాసులు రెడ్డి</div>\n</header>\n<main>\n  <div class="tab-bar">\n    <button class="tab active" onclick="showTab(\'read\')">చదవు</button>\n    <button class="tab" onclick="showTab(\'toc\')">విషయ సూచిక</button>\n  </div>\n  <div id="tab-read">\n    <div class="book">\n      <div id="pages-container"></div>\n      <div class="nav">\n        <button class="nav-btn" id="btn-prev" onclick="changePage(-1)">\u2190 వెనుక</button>\n        <span class="page-count" id="page-count">\u2013 / \u2013</span>\n        <button class="nav-btn" id="btn-next" onclick="changePage(1)">ముందు \u2192</button>\n      </div>\n    </div>\n  </div>\n  <div id="tab-toc" style="display:none">\n    <div class="book">\n      <div class="toc">\n        <div class="toc-heading">అన్ని కవితలు</div>\n        <div id="toc-list"></div>\n      </div>\n    </div>\n  </div>\n</main>\n<script>\nvar poems='+pj+';\nvar currentPage=1;\nfunction esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}\nfunction renderPages(){var c=document.getElementById("pages-container");c.innerHTML="";poems.forEach(function(p,i){var d=document.createElement("div");d.className="page"+(i===0?" active":"");d.id="page-"+(i+1);d.innerHTML="<div><div class=\'poem-label\'>కవిత "+(i+1)+" / "+poems.length+"</div><div class=\'divider\'></div>"+(p.title?"<div class=\'poem-title-text\'>"+esc(p.title)+"</div>":"")+"<div class=\'poem-body\'>"+p.lines.map(function(l){return"<span class=\'line\'>"+esc(l)+"</span>"}).join("")+"</div></div><div class=\'poem-meta\'><div class=\'poem-author-line\'>\u2014 "+esc(p.author)+"</div>"+(p.date?"<div class=\'poem-date-line\'>"+esc(p.date)+"</div>":"")+"</div>";c.appendChild(d)});currentPage=1;updateNav()}\nfunction renderTOC(){var list=document.getElementById("toc-list");list.innerHTML="";poems.forEach(function(p,i){var item=document.createElement("div");item.className="toc-item";item.innerHTML="<span class=\'toc-num\'>"+(i+1)+"</span><span class=\'toc-name\'>"+esc(p.title||"(శీర్షిక లేదు)")+"</span><span class=\'toc-date\'>"+esc(p.date||"")+"</span>";item.onclick=(function(idx){return function(){goToPage(idx+1);showTab("read")}})(i);list.appendChild(item)})}\nfunction goToPage(n){var prev=document.getElementById("page-"+currentPage);if(prev)prev.classList.remove("active");currentPage=n;var next=document.getElementById("page-"+currentPage);if(next)next.classList.add("active");updateNav()}\nfunction changePage(dir){var n=currentPage+dir;if(n>=1&&n<=poems.length)goToPage(n)}\nfunction updateNav(){document.getElementById("page-count").textContent=currentPage+" / "+poems.length;document.getElementById("btn-prev").disabled=currentPage===1;document.getElementById("btn-next").disabled=currentPage===poems.length}\nfunction showTab(name){document.getElementById("tab-read").style.display=name==="read"?"block":"none";document.getElementById("tab-toc").style.display=name==="toc"?"block":"none";document.querySelectorAll(".tab")[name==="read"?0:1].classList.add("active");document.querySelectorAll(".tab")[name==="read"?1:0].classList.remove("active")}\nrenderPages();renderTOC();\n<\/script>\n</body>\n</html>';
+}
+
+function buildAdminHTML(){
+  var src=document.documentElement.outerHTML;
+  var pj=JSON.stringify(poems,null,2);
+  src=src.replace(/var poems = \[[\s\S]*?\];/,'var poems = '+pj+';');
+  src=src.replace(/var ADMIN_PIN = ".*?";/,'var ADMIN_PIN = "'+ADMIN_PIN+'";');
+  return '<!DOCTYPE html>\n'+src;
+}
+</script>
+</body>
+</html>

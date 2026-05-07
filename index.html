@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>పద్య మాలిక – కత్తెరపల్లి శ్రీనివాసులు రెడ్డి</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Telugu:ital@0;1&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #faf9f6;
+    --surface: #ffffff;
+    --border: rgba(0,0,0,0.09);
+    --border-strong: rgba(0,0,0,0.16);
+    --text: #1a1a1a;
+    --text-muted: #6b6560;
+    --text-faint: #a09890;
+    --accent: #7c5c3a;
+    --accent-bg: #f5ede3;
+    --radius: 14px;
+    --shadow: 0 2px 20px rgba(0,0,0,0.07);
+  }
+  body { background: var(--bg); color: var(--text); font-family: 'Cormorant Garamond', Georgia, serif; min-height: 100vh; }
+
+  header { text-align: center; padding: 3rem 1rem 2rem; max-width: 640px; margin: 0 auto; border-bottom: 0.5px solid var(--border); }
+  .eyebrow { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.5rem; }
+  .ornament { letter-spacing: 0.4em; color: var(--text-faint); font-size: 13px; margin: 0.6rem 0; opacity: 0.5; }
+  .main-title { font-family: 'Tiro Telugu', serif; font-size: 26px; font-weight: 400; line-height: 1.4; }
+  .sub-author { font-family: 'Tiro Telugu', serif; font-size: 15px; color: var(--text-muted); margin-top: 0.5rem; }
+
+  main { max-width: 640px; margin: 0 auto; padding: 2rem 1rem 5rem; }
+
+  .tab-bar { display: flex; border-bottom: 0.5px solid var(--border); margin-bottom: 2rem; }
+  .tab { flex: 1; padding: 10px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; text-align: center; cursor: pointer; color: var(--text-muted); border: none; border-bottom: 1.5px solid transparent; background: none; font-family: 'Cormorant Garamond', serif; transition: color 0.15s, border-color 0.15s; }
+  .tab.active { color: var(--text); border-bottom-color: var(--accent); }
+
+  /* Book */
+  .book { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+  .page { display: none; padding: 2.5rem; min-height: 380px; flex-direction: column; justify-content: space-between; }
+  .page.active { display: flex; }
+  .poem-label { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-faint); text-align: center; margin-bottom: 1.4rem; }
+  .divider { width: 36px; height: 0.5px; background: var(--border-strong); margin: 0 auto 1.6rem; }
+  .poem-title-text { font-family: 'Tiro Telugu', serif; font-size: 20px; color: var(--text); text-align: center; margin-bottom: 1.6rem; }
+  .poem-body { font-family: 'Tiro Telugu', serif; font-size: 21px; line-height: 2.1; color: var(--text); text-align: center; flex: 1; }
+  .poem-body .line { display: block; }
+  .poem-meta { margin-top: 2rem; text-align: right; border-top: 0.5px solid var(--border); padding-top: 1rem; }
+  .poem-author-line { font-family: 'Tiro Telugu', serif; font-size: 14px; color: var(--text-muted); }
+  .poem-date-line { font-family: 'Tiro Telugu', serif; font-size: 13px; color: var(--text-faint); margin-top: 3px; }
+
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 2rem; border-top: 0.5px solid var(--border); background: var(--bg); }
+  .nav-btn { background: none; border: 0.5px solid var(--border-strong); border-radius: 8px; padding: 6px 18px; font-size: 13px; cursor: pointer; color: var(--text-muted); font-family: 'Cormorant Garamond', serif; transition: background 0.15s, color 0.15s; }
+  .nav-btn:hover:not(:disabled) { background: var(--accent-bg); color: var(--accent); }
+  .nav-btn:disabled { opacity: 0.25; cursor: default; }
+  .page-count { font-size: 12px; color: var(--text-faint); letter-spacing: 0.1em; }
+
+  /* TOC */
+  .toc { padding: 1.5rem 2rem; }
+  .toc-heading { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 1rem; }
+  .toc-item { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 0.5px solid var(--border); cursor: pointer; }
+  .toc-item:last-child { border-bottom: none; }
+  .toc-num { font-size: 12px; color: var(--text-faint); min-width: 22px; }
+  .toc-name { font-family: 'Tiro Telugu', serif; font-size: 18px; color: var(--text); flex: 1; }
+  .toc-date { font-family: 'Tiro Telugu', serif; font-size: 12px; color: var(--text-faint); }
+  .toc-item:hover .toc-name { color: var(--accent); }
+
+  .empty-state { text-align: center; padding: 4rem 2rem; color: var(--text-faint); font-size: 15px; }
+
+  @media (max-width: 480px) {
+    header { padding: 2rem 1rem 1.5rem; }
+    .main-title { font-size: 20px; }
+    .page { padding: 1.5rem; }
+    .poem-body { font-size: 18px; }
+    .nav, .toc { padding-left: 1.25rem; padding-right: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">కవిత్వ సంకలనం</div>
+  <div class="ornament">· · ·</div>
+  <div class="main-title">పద్య మాలిక</div>
+  <div class="sub-author">కత్తెరపల్లి శ్రీనివాసులు రెడ్డి</div>
+</header>
+
+<main>
+  <div class="tab-bar">
+    <button class="tab active" onclick="showTab('read')">చదవు</button>
+    <button class="tab" onclick="showTab('toc')">విషయ సూచిక</button>
+  </div>
+
+  <div id="tab-read">
+    <div class="book">
+      <div id="pages-container"></div>
+      <div class="nav">
+        <button class="nav-btn" id="btn-prev" onclick="changePage(-1)">← వెనుక</button>
+        <span class="page-count" id="page-count">– / –</span>
+        <button class="nav-btn" id="btn-next" onclick="changePage(1)">ముందు →</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-toc" style="display:none;">
+    <div class="book">
+      <div class="toc">
+        <div class="toc-heading">అన్ని కవితలు</div>
+        <div id="toc-list"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+// ── POEMS DATA — edit this array to update content ──
+var poems = [
+  {
+    "id": 1,
+    "title": "నర సింహ స్తుతి",
+    "lines": [
+      "చతుర్దావతార పురుషుడు",
+      "నర సింహ స్వరూపుడు",
+      "భక్తప్రహ్లాద వరదుడు",
+      "భవబంధన విముక్తుడు",
+      "సర్వలోక పాలకుడు",
+      "సాధు జన రక్షకునికి",
+      "జయము జయము ...."
+    ],
+    "author": "కత్తెరపల్లి శ్రీనివాసులు రెడ్డి",
+    "date": "30 ఏప్రిల్ 2026"
+  }
+];
+
+var currentPage = 1;
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function renderPages() {
+  var c = document.getElementById('pages-container');
+  c.innerHTML = '';
+  if (!poems.length) {
+    c.innerHTML = '<div class="empty-state">కవితలు ఏవీ లేవు. నిర్వహణ పేజీలో జోడించండి.</div>';
+    document.getElementById('page-count').textContent = '0 / 0';
+    return;
+  }
+  poems.forEach(function(p, i) {
+    var d = document.createElement('div');
+    d.className = 'page' + (i === 0 ? ' active' : '');
+    d.id = 'page-' + (i+1);
+    d.innerHTML =
+      '<div>' +
+        '<div class="poem-label">కవిత ' + (i+1) + ' / ' + poems.length + '</div>' +
+        '<div class="divider"></div>' +
+        (p.title ? '<div class="poem-title-text">' + esc(p.title) + '</div>' : '') +
+        '<div class="poem-body">' + p.lines.map(function(l){ return '<span class="line">'+esc(l)+'</span>'; }).join('') + '</div>' +
+      '</div>' +
+      '<div class="poem-meta">' +
+        '<div class="poem-author-line">— ' + esc(p.author) + '</div>' +
+        (p.date ? '<div class="poem-date-line">' + esc(p.date) + '</div>' : '') +
+      '</div>';
+    c.appendChild(d);
+  });
+  currentPage = 1;
+  updateNav();
+}
+
+function renderTOC() {
+  var list = document.getElementById('toc-list');
+  list.innerHTML = '';
+  poems.forEach(function(p, i) {
+    var item = document.createElement('div');
+    item.className = 'toc-item';
+    item.innerHTML =
+      '<span class="toc-num">' + (i+1) + '</span>' +
+      '<span class="toc-name">' + esc(p.title || '(శీర్షిక లేదు)') + '</span>' +
+      '<span class="toc-date">' + esc(p.date || '') + '</span>';
+    item.onclick = (function(idx){ return function(){ goToPage(idx+1); showTab('read'); }; })(i);
+    list.appendChild(item);
+  });
+}
+
+function goToPage(n) {
+  var prev = document.getElementById('page-' + currentPage);
+  if (prev) prev.classList.remove('active');
+  currentPage = n;
+  var next = document.getElementById('page-' + currentPage);
+  if (next) next.classList.add('active');
+  updateNav();
+}
+
+function changePage(dir) {
+  var n = currentPage + dir;
+  if (n >= 1 && n <= poems.length) goToPage(n);
+}
+
+function updateNav() {
+  document.getElementById('page-count').textContent = currentPage + ' / ' + poems.length;
+  document.getElementById('btn-prev').disabled = currentPage === 1;
+  document.getElementById('btn-next').disabled = currentPage === poems.length;
+}
+
+function showTab(name) {
+  document.getElementById('tab-read').style.display = name === 'read' ? 'block' : 'none';
+  document.getElementById('tab-toc').style.display = name === 'toc' ? 'block' : 'none';
+  document.querySelectorAll('.tab')[name === 'read' ? 0 : 1].classList.add('active');
+  document.querySelectorAll('.tab')[name === 'read' ? 1 : 0].classList.remove('active');
+}
+
+renderPages();
+renderTOC();
+</script>
+</body>
+</html>
