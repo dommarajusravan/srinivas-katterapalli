@@ -8,10 +8,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Tiro+Telugu:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--ink:#1c1310;--ink2:#4a3728;--ink3:#8a7060;--gold:#c9903a;--gold2:#e8b86d;--gold3:#f7dfa0;--cream:#fdf8f0;--cream2:#f5ede0;--cream3:#ede0cc;--glass:rgba(255,252,247,0.88);--shadow-sm:0 2px 12px rgba(28,19,16,0.08);--shadow-md:0 8px 40px rgba(28,19,16,0.14);--shadow-lg:0 24px 80px rgba(28,19,16,0.18);--radius:20px}
+:root{
+  --ink:#1c1310;--ink2:#4a3728;--ink3:#8a7060;
+  --gold:#c9903a;--gold2:#e8b86d;--gold3:#f7dfa0;
+  --cream:#fdf8f0;--cream2:#f5ede0;--cream3:#ede0cc;
+  --glass:rgba(255,252,247,0.88);
+  --shadow-sm:0 2px 12px rgba(28,19,16,0.08);
+  --shadow-md:0 8px 40px rgba(28,19,16,0.14);
+  --shadow-lg:0 24px 80px rgba(28,19,16,0.18);
+  --radius:20px;
+}
 html{scroll-behavior:smooth}
 body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 15% 10%,rgba(201,144,58,0.10) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at 85% 90%,rgba(201,144,58,0.08) 0%,transparent 60%);pointer-events:none;z-index:0}
+
+/* HEADER */
 header{position:relative;z-index:10;text-align:center;padding:4rem 2rem 2.5rem;max-width:780px;margin:0 auto}
 .header-badge{display:inline-block;font-size:10px;font-weight:500;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);background:linear-gradient(135deg,rgba(201,144,58,0.12),rgba(232,184,109,0.08));border:1px solid rgba(201,144,58,0.25);border-radius:100px;padding:6px 18px;margin-bottom:1.5rem;backdrop-filter:blur(8px)}
 .header-ornament{display:flex;align-items:center;justify-content:center;gap:12px;margin:.75rem 0 1.25rem}
@@ -20,12 +31,20 @@ header{position:relative;z-index:10;text-align:center;padding:4rem 2rem 2.5rem;m
 .main-title{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,48px);font-weight:700;line-height:1.15;color:var(--ink);letter-spacing:-0.01em;margin-bottom:.6rem}
 .sub-author{font-family:'Tiro Telugu',serif;font-size:16px;color:var(--ink3);font-style:italic}
 .header-rule{width:100%;max-width:500px;height:1px;background:linear-gradient(90deg,transparent,var(--cream3) 20%,var(--gold2) 50%,var(--cream3) 80%,transparent);margin:2rem auto 0}
+
+/* MAIN */
 main{position:relative;z-index:10;max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem}
+
+/* TAB BAR */
 .tab-bar{display:flex;gap:4px;background:var(--glass);backdrop-filter:blur(16px);border:1px solid rgba(201,144,58,0.15);border-radius:100px;padding:5px;margin-bottom:2.5rem;box-shadow:var(--shadow-sm),inset 0 1px 0 rgba(255,255,255,0.8)}
 .tab{flex:1;padding:10px 16px;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;text-align:center;cursor:pointer;color:var(--ink3);border:none;border-radius:100px;background:transparent;font-family:'DM Sans',sans-serif;transition:all .25s cubic-bezier(.4,0,.2,1)}
 .tab.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;box-shadow:0 4px 14px rgba(201,144,58,0.4)}
+
+/* BOOK */
 .book{background:var(--glass);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.9);border-radius:var(--radius);box-shadow:var(--shadow-lg),inset 0 1px 0 rgba(255,255,255,1),inset 0 -1px 0 rgba(201,144,58,0.1);overflow:hidden;position:relative}
 .book::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold2),var(--gold),var(--gold2),transparent)}
+
+/* PAGES */
 .page{display:none;padding:3.5rem 3rem 2.5rem;min-height:440px;flex-direction:column;justify-content:space-between;animation:fadeUp .4s cubic-bezier(.4,0,.2,1)}
 .page.active{display:flex}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
@@ -42,6 +61,8 @@ main{position:relative;z-index:10;max-width:780px;margin:0 auto;padding:2rem 1.5
 .poem-meta{margin-top:2.5rem;display:flex;flex-direction:column;align-items:flex-end;gap:4px;padding-top:1.5rem;border-top:1px solid rgba(201,144,58,0.12)}
 .poem-author-line{font-family:'Tiro Telugu',serif;font-size:14px;color:var(--ink3);font-style:italic}
 .poem-date-line{font-size:11px;color:var(--gold);letter-spacing:.08em}
+
+/* NAV */
 .nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 2.5rem;border-top:1px solid rgba(201,144,58,0.1);background:linear-gradient(to bottom,transparent,rgba(245,237,224,0.4))}
 .nav-btn{background:none;border:1px solid rgba(201,144,58,0.25);border-radius:100px;padding:8px 20px;font-size:12px;font-weight:500;cursor:pointer;color:var(--ink2);font-family:'DM Sans',sans-serif;letter-spacing:.06em;transition:all .2s;backdrop-filter:blur(8px)}
 .nav-btn:hover:not(:disabled){background:linear-gradient(135deg,var(--gold),var(--gold2));border-color:transparent;color:#fff;box-shadow:0 4px 14px rgba(201,144,58,0.35)}
@@ -49,6 +70,8 @@ main{position:relative;z-index:10;max-width:780px;margin:0 auto;padding:2rem 1.5
 .nav-dots{display:flex;gap:6px;align-items:center}
 .nav-dot{width:6px;height:6px;border-radius:50%;background:var(--cream3);transition:all .3s;cursor:pointer;border:none;padding:0}
 .nav-dot.active{width:18px;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--gold2))}
+
+/* TOC */
 .toc{padding:2rem 2.5rem}
 .toc-heading{font-size:10px;font-weight:500;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem}
 .toc-item{display:flex;align-items:center;gap:16px;padding:14px 8px;border-bottom:1px solid rgba(201,144,58,0.08);cursor:pointer;transition:all .2s;border-radius:8px}
@@ -58,6 +81,7 @@ main{position:relative;z-index:10;max-width:780px;margin:0 auto;padding:2rem 1.5
 .toc-name{font-family:'Tiro Telugu',serif;font-size:18px;color:var(--ink);flex:1;transition:color .2s}
 .toc-item:hover .toc-name{color:var(--gold)}
 .toc-date{font-size:11px;color:var(--ink3)}
+
 @media(max-width:600px){header{padding:3rem 1.25rem 2rem}.page{padding:2.5rem 1.5rem 2rem}.nav{padding:1rem 1.5rem}.toc{padding:1.5rem}}
 </style>
 </head>
@@ -94,151 +118,33 @@ main{position:relative;z-index:10;max-width:780px;margin:0 auto;padding:2rem 1.5
   </div>
 </main>
 <script>
-var poems=[
-  {
-    "id": 1,
-    "title": "నర సింహ స్తుతి",
-    "lines": [
-      "చతుర్దావతార పురుషుడు",
-      "నర సింహ స్వరూపుడు",
-      "భక్తప్రహ్లాద వరదుడు",
-      "భవబంధన విముక్తుడు",
-      "సర్వలోక పాలకుడు",
-      "సాధు జన రక్షకునికి",
-      "జయము జయము ...."
-    ],
-    "author": "కత్తెరపల్లి శ్రీనివాసులు రెడ్డి",
-    "date": "30 ఏప్రిల్ 2026"
-  },
-  {
-    "id": 1778188915715,
-    "title": "",
-    "lines": [
-      "తెలుగు తేనెల తీయదనం",
-      "తేరగనే రాలేదని,",
-      "వాసనలారని వన్నెతగ్గని",
-      "చక్కని పదాలు,",
-      "నన్నయ తిక్కన ఎర్రన మొదలు,",
-      "మీదాక నాదాక నేటిదాక",
-      "ప్రతినోట వూరివూరి",
-      "ఊటలై పారగా వచ్చిందే....."
-    ],
-    "author": "కత్తెరపల్లి శ్రీనివాసులు రెడ్డి",
-    "date": ""
-  },
-  {
-    "id": 1778188955975,
-    "title": "",
-    "lines": [
-      "సుత్తి కొడవలి చేతబట్టి",
-      "ఎర్ర కండువా తలకు చుట్టి",
-      "సంఘటితమై చేయి కలిపి",
-      "శ్రమను నమ్మి దుమ్ము పీల్చి",
-      "ఎండ వానను లెక్కచేయక",
-      "కొండనైనా పిండిజేసి",
-      "పిడికెలెత్తి గొంతు కలిపే...",
-      "అందరు కార్మిక సోదరసోదరీమణులకు...",
-      "లాల్ సలామ్..."
-    ],
-    "author": "కత్తెరపల్లి శ్రీనివాసులు రెడ్డి",
-    "date": "01 మే 2025"
-  },
-  {
-    "id": 1778188966292,
-    "title": "",
-    "lines": [
-      "చిన్నతనం దాటాక",
-      "సిగ్గన్నది పోయాక",
-      "అల్లరై పోతావోయ్",
-      "ఆలోచన పడతావోయ్",
-      "చిల్లర లేకుంటే....",
-      "మూతులు ముడుచుకొని",
-      "చేతులు మడుచుకొని",
-      "ముక్తసరి మాటలతో",
-      "ముఖమును చాటేస్తే .....",
-      "అల్లరై పోతావోయ్",
-      "చిల్లర లేకుంటే....",
-      "అది అంతరాలను తాకి",
-      "మధ్యరాతిరిలో లేపేస్తుంది",
-      "ఎక్కి యేడ్చేలా యేకేస్తుంది.....",
-      "కల్పితపు మాటల గొప్ప కవివైనా",
-      "చెక్కి చక్కని బొమ్మను నిలిపే శిల్పివైనా",
-      "అల్లరై పోతావోయ్",
-      "చేత చిల్లర లేకుంటే......"
-    ],
-    "author": "కత్తెరపల్లి శ్రీనివాసులు రెడ్డి",
-    "date": ""
-  },
-  {
-    "id": 1778188982292,
-    "title": "",
-    "lines": [
-      "వచ్చిందే మెరుపుతీగ",
-      "ఒళ్లంతా సుగంధ శోభ...",
-      "మెడమీదకు రింగుల జుట్టు",
-      "ఆ కిందన పచ్చబొట్టు",
-      "వీపేమో అద్దపు బిల్ల",
-      "యే వూరిదొ అందపు పిల్ల",
-      "మాటేమో అగ్గిపుల్ల",
-      "చెప్పరావే నీదే జిల్లా",
-      "చారడేసి కళ్లున్నాయే",
-      "ముత్యమంటి పళ్లున్నాయే",
-      "కన్నారా చూసిందిరా",
-      "కనికట్టు చేసిందిరా",
-      "మాటెట్టా కలపాలిరో",
-      "మనువెట్టా ఆడాలిరో..."
-    ],
-    "author": "కత్తెరపల్లి శ్రీనివాసులు రెడ్డి",
-    "date": "15 మార్చి 2026"
-  },
-  {
-    "id": 1778188998692,
-    "title": "",
-    "lines": [
-      "ఇద్దరి పొందున్ననూ",
-      "విరహపు విందేలరా..",
-      "నిద్దురరాని నిశీధి రాత్రుల",
-      "ఇటటాయనే యిరుకున నీవేలరా...",
-      "దేవేరులిరువురు దయగల తల్లులు",
-      "నీవొక్కనివే వారికి నాలుగు కన్నులు...",
-      "ఇద్దరి పొందున్ననూ",
-      "విరహపు విందేలరా...ఆనంద నిలయా..."
-    ],
-    "author": "కత్తెరపల్లి శ్రీనివాసులు రెడ్డి",
-    "date": "14 మార్చి 2026"
-  },
-  {
-    "id": 1778189015325,
-    "title": "",
-    "lines": [
-      "ఎత్తుగాలి మల్లింది",
-      "ఎత్తుకెళ్లి పోతోంది",
-      "పత్తి చేను గట్టుమీద",
-      "ఎంకి పైట ఎగిరింది",
-      "గోదారి గట్టునున్నా",
-      "గొంతారి పోతోంది",
-      "...ఎత్తుగాలి మల్లింది...",
-      "మల్లెపూల కాలమొచ్చి",
-      "మనసు కాస్త తుల్లిందే",
-      "పల్లెమాట గుర్తుకొచ్చి",
-      "నా పలుకు ఆగిందే",
-      "..ఎత్తుగాలి మల్లింది",
-      "ఏదేదొ అంటోంది....."
-    ],
-    "author": "కత్తెరపల్లి శ్రీనివాసులు రెడ్డి",
-    "date": "12 మార్చి 2026"
-  }
+var poems = [
+  {"id":1,"title":"నర సింహ స్తుతి","lines":["చతుర్దావతార పురుషుడు","నర సింహ స్వరూపుడు","భక్తప్రహ్లాద వరదుడు","భవబంధన విముక్తుడు","సర్వలోక పాలకుడు","సాధు జన రక్షకునికి","జయము జయము ...."],"author":"కత్తెరపల్లి శ్రీనివాసులు రెడ్డి","date":"30 ఏప్రిల్ 2026"}
 ];
 var currentPage=1;
-function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
-function renderPages(){var c=document.getElementById("pages-container");c.innerHTML="";poems.forEach(function(p,i){var d=document.createElement("div");d.className="page"+(i===0?" active":"");d.id="page-"+(i+1);d.innerHTML='<div class="poem-counter"><div class="poem-counter-line"></div><span class="poem-counter-num">'+String(i+1).padStart(2,"0")+' / '+String(poems.length).padStart(2,"0")+'</span><div class="poem-counter-line r"></div></div>'+(p.title?'<div class="poem-title-text">'+esc(p.title)+'</div>':'')+'<div class="poem-divider"><span></span><span></span><span></span><span></span><span></span></div><div class="poem-body">'+p.lines.map(function(l){return'<span class="line">'+esc(l)+'</span>'}).join("")+'</div><div class="poem-meta"><div class="poem-author-line">— '+esc(p.author)+'</div>'+(p.date?'<div class="poem-date-line">'+esc(p.date)+'</div>':'')+'</div>';c.appendChild(d)});currentPage=1;renderDots();updateNav()}
-function renderDots(){var dots=document.getElementById("nav-dots");dots.innerHTML="";poems.forEach(function(_,i){var dot=document.createElement("button");dot.className="nav-dot"+(i===0?" active":"");dot.onclick=(function(idx){return function(){goToPage(idx+1)}})(i);dots.appendChild(dot)})}
-function renderTOC(){var list=document.getElementById("toc-list");list.innerHTML="";poems.forEach(function(p,i){var item=document.createElement("div");item.className="toc-item";item.innerHTML='<div class="toc-num">'+(i+1)+'</div><span class="toc-name">'+esc(p.title||"(శీర్షిక లేదు)")+'</span><span class="toc-date">'+esc(p.date||"")+'</span>';item.onclick=(function(idx){return function(){goToPage(idx+1);showTab("read")}})(i);list.appendChild(item)})}
-function goToPage(n){var prev=document.getElementById("page-"+currentPage);if(prev)prev.classList.remove("active");currentPage=n;var next=document.getElementById("page-"+currentPage);if(next)next.classList.add("active");document.querySelectorAll(".nav-dot").forEach(function(d,i){d.classList.toggle("active",i===n-1)});updateNav()}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function renderPages(){
+  var c=document.getElementById('pages-container');c.innerHTML='';
+  poems.forEach(function(p,i){
+    var d=document.createElement('div');d.className='page'+(i===0?' active':'');d.id='page-'+(i+1);
+    d.innerHTML='<div class="poem-counter"><div class="poem-counter-line"></div><span class="poem-counter-num">'+String(i+1).padStart(2,'0')+' / '+String(poems.length).padStart(2,'0')+'</span><div class="poem-counter-line r"></div></div>'+(p.title?'<div class="poem-title-text">'+esc(p.title)+'</div>':'')+'<div class="poem-divider"><span></span><span></span><span></span><span></span><span></span></div><div class="poem-body">'+p.lines.map(function(l){return'<span class="line">'+esc(l)+'</span>'}).join('')+'</div><div class="poem-meta"><div class="poem-author-line">— '+esc(p.author)+'</div>'+(p.date?'<div class="poem-date-line">'+esc(p.date)+'</div>':'')+'</div>';
+    c.appendChild(d);
+  });
+  currentPage=1;renderDots();updateNav();
+}
+function renderDots(){
+  var dots=document.getElementById('nav-dots');dots.innerHTML='';
+  poems.forEach(function(_,i){var dot=document.createElement('button');dot.className='nav-dot'+(i===0?' active':'');dot.onclick=(function(idx){return function(){goToPage(idx+1)}})(i);dots.appendChild(dot)});
+}
+function renderTOC(){
+  var list=document.getElementById('toc-list');list.innerHTML='';
+  poems.forEach(function(p,i){var item=document.createElement('div');item.className='toc-item';item.innerHTML='<div class="toc-num">'+(i+1)+'</div><span class="toc-name">'+esc(p.title||'(శీర్షిక లేదు)')+'</span><span class="toc-date">'+esc(p.date||'')+'</span>';item.onclick=(function(idx){return function(){goToPage(idx+1);showTab('read')}})(i);list.appendChild(item)});
+}
+function goToPage(n){var prev=document.getElementById('page-'+currentPage);if(prev)prev.classList.remove('active');currentPage=n;var next=document.getElementById('page-'+currentPage);if(next)next.classList.add('active');document.querySelectorAll('.nav-dot').forEach(function(d,i){d.classList.toggle('active',i===n-1)});updateNav()}
 function changePage(dir){var n=currentPage+dir;if(n>=1&&n<=poems.length)goToPage(n)}
-function updateNav(){document.getElementById("btn-prev").disabled=currentPage===1;document.getElementById("btn-next").disabled=currentPage===poems.length}
-function showTab(name){document.getElementById("tab-read").style.display=name==="read"?"block":"none";document.getElementById("tab-toc").style.display=name==="toc"?"block":"none";document.querySelectorAll(".tab").forEach(function(t,i){t.classList.toggle("active",(name==="read"&&i===0)||(name==="toc"&&i===1))})}
-document.addEventListener("keydown",function(e){if(document.getElementById("tab-read").style.display!=="none"){if(e.key==="ArrowRight")changePage(1);if(e.key==="ArrowLeft")changePage(-1)}});
+function updateNav(){document.getElementById('btn-prev').disabled=currentPage===1;document.getElementById('btn-next').disabled=currentPage===poems.length}
+function showTab(name){document.getElementById('tab-read').style.display=name==='read'?'block':'none';document.getElementById('tab-toc').style.display=name==='toc'?'block':'none';document.querySelectorAll('.tab').forEach(function(t,i){t.classList.toggle('active',(name==='read'&&i===0)||(name==='toc'&&i===1))})}
+document.addEventListener('keydown',function(e){if(document.getElementById('tab-read').style.display!=='none'){if(e.key==='ArrowRight')changePage(1);if(e.key==='ArrowLeft')changePage(-1)}});
 renderPages();renderTOC();
 </script>
 </body>
