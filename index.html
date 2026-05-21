@@ -42,7 +42,7 @@ main{position:relative;z-index:10;max-width:780px;margin:0 auto;padding:2rem 1.5
 .poem-author-line{font-family:'Tiro Telugu',serif;font-size:14px;color:var(--ink3);font-style:italic}
 .poem-date-line{font-size:11px;color:var(--gold);letter-spacing:.08em}
 .nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 2.5rem;border-top:1px solid rgba(201,144,58,.1);background:linear-gradient(to bottom,transparent,rgba(245,237,224,.4))}
-.nav-btn{background:none;border:1px solid rgba(201,144,58,.25);border-radius:100px;padding:8px 20px;font-size:12px;font-weight:500;cursor:pointer;color:var(--ink2);font-family:'DM Sans',sans-serif;letter-spacing:.06em;transition:all .2s}
+.nav-btn{background:none;border:1px solid rgba(201,144,58,.25);border-radius:100px;padding:8px 20px;font-size:12px;font-weight:500;cursor:pointer;color:var(--ink2);font-family:'DM Sans',sans-serif;transition:all .2s}
 .nav-btn:hover:not(:disabled){background:linear-gradient(135deg,var(--gold),var(--gold2));border-color:transparent;color:#fff;box-shadow:0 4px 14px rgba(201,144,58,.35)}
 .nav-btn:disabled{opacity:.25;cursor:default}
 .nav-dots{display:flex;gap:6px;align-items:center}
@@ -73,21 +73,65 @@ main{position:relative;z-index:10;max-width:780px;margin:0 auto;padding:2rem 1.5
     <button class="tab active" onclick="showTab('read')">చదవు</button>
     <button class="tab" onclick="showTab('toc')">విషయ సూచిక</button>
   </div>
-  <div id="tab-read"><div class="book"><div id="pages-container"></div><div class="nav"><button class="nav-btn" id="btn-prev" onclick="changePage(-1)">← వెనుక</button><div class="nav-dots" id="nav-dots"></div><button class="nav-btn" id="btn-next" onclick="changePage(1)">ముందు →</button></div></div></div>
-  <div id="tab-toc" style="display:none;"><div class="book"><div class="toc"><div class="toc-heading">అన్ని కవితలు</div><div id="toc-list"></div></div></div></div>
+  <div id="tab-read">
+    <div class="book">
+      <div id="pages-container"></div>
+      <div class="nav">
+        <button class="nav-btn" id="btn-prev" onclick="changePage(-1)">← వెనుక</button>
+        <div class="nav-dots" id="nav-dots"></div>
+        <button class="nav-btn" id="btn-next" onclick="changePage(1)">ముందు →</button>
+      </div>
+    </div>
+  </div>
+  <div id="tab-toc" style="display:none;">
+    <div class="book"><div class="toc"><div class="toc-heading">అన్ని కవితలు</div><div id="toc-list"></div></div></div>
+  </div>
 </main>
 <script>
-var poems=[{"id":1,"title":"నర సింహ స్తుతి","lines":["చతుర్దావతార పురుషుడు","నర సింహ స్వరూపుడు","భక్తప్రహ్లాద వరదుడు","భవబంధన విముక్తుడు","సర్వలోక పాలకుడు","సాధు జన రక్షకునికి","జయము జయము ...."],"author":"కత్తెరపల్లి శ్రీనివాసులు రెడ్డి","date":"30 ఏప్రిల్ 2026"},{"id":1779403312414,"title":"Test","lines":["Test"],"author":"కత్తెరపల్లి శ్రీనివాసులు రెడ్డి","date":""}];
+var poems=[{"id": 1, "title": "\u0c28\u0c30 \u0c38\u0c3f\u0c02\u0c39 \u0c38\u0c4d\u0c24\u0c41\u0c24\u0c3f", "lines": ["\u0c1a\u0c24\u0c41\u0c30\u0c4d\u0c26\u0c3e\u0c35\u0c24\u0c3e\u0c30 \u0c2a\u0c41\u0c30\u0c41\u0c37\u0c41\u0c21\u0c41", "\u0c28\u0c30 \u0c38\u0c3f\u0c02\u0c39 \u0c38\u0c4d\u0c35\u0c30\u0c42\u0c2a\u0c41\u0c21\u0c41", "\u0c2d\u0c15\u0c4d\u0c24\u0c2a\u0c4d\u0c30\u0c39\u0c4d\u0c32\u0c3e\u0c26 \u0c35\u0c30\u0c26\u0c41\u0c21\u0c41", "\u0c2d\u0c35\u0c2c\u0c02\u0c27\u0c28 \u0c35\u0c3f\u0c2e\u0c41\u0c15\u0c4d\u0c24\u0c41\u0c21\u0c41", "\u0c38\u0c30\u0c4d\u0c35\u0c32\u0c4b\u0c15 \u0c2a\u0c3e\u0c32\u0c15\u0c41\u0c21\u0c41", "\u0c38\u0c3e\u0c27\u0c41 \u0c1c\u0c28 \u0c30\u0c15\u0c4d\u0c37\u0c15\u0c41\u0c28\u0c3f\u0c15\u0c3f", "\u0c1c\u0c2f\u0c2e\u0c41 \u0c1c\u0c2f\u0c2e\u0c41 ...."], "author": "\u0c15\u0c24\u0c4d\u0c24\u0c46\u0c30\u0c2a\u0c32\u0c4d\u0c32\u0c3f \u0c36\u0c4d\u0c30\u0c40\u0c28\u0c3f\u0c35\u0c3e\u0c38\u0c41\u0c32\u0c41 \u0c30\u0c46\u0c21\u0c4d\u0c21\u0c3f", "date": "30 \u0c0f\u0c2a\u0c4d\u0c30\u0c3f\u0c32\u0c4d 2026"}];
 var currentPage=1;
-function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
-function renderPages(){var c=document.getElementById("pages-container");c.innerHTML="";poems.forEach(function(p,i){var d=document.createElement("div");d.className="page"+(i===0?" active":"");d.id="page-"+(i+1);d.innerHTML='<div class="poem-counter"><div class="poem-counter-line"></div><span class="poem-counter-num">'+String(i+1).padStart(2,"0")+' / '+String(poems.length).padStart(2,"0")+'</span><div class="poem-counter-line r"></div></div>'+(p.title?'<div class="poem-title-text">'+esc(p.title)+'</div>':'')+'<div class="poem-divider"><span></span><span></span><span></span><span></span><span></span></div><div class="poem-body">'+p.lines.map(function(l){return'<span class="line">'+esc(l)+'</span>'}).join("")+'</div><div class="poem-meta"><div class="poem-author-line">— '+esc(p.author)+'</div>'+(p.date?'<div class="poem-date-line">'+esc(p.date)+'</div>':'')+'</div>';c.appendChild(d)});currentPage=1;renderDots();updateNav()}
-function renderDots(){var dots=document.getElementById("nav-dots");dots.innerHTML="";poems.forEach(function(_,i){var dot=document.createElement("button");dot.className="nav-dot"+(i===0?" active":"");dot.onclick=(function(idx){return function(){goToPage(idx+1)}})(i);dots.appendChild(dot)})}
-function renderTOC(){var list=document.getElementById("toc-list");list.innerHTML="";poems.forEach(function(p,i){var item=document.createElement("div");item.className="toc-item";item.innerHTML='<div class="toc-num">'+(i+1)+'</div><span class="toc-name">'+esc(p.title||"(శీర్షిక లేదు)")+'</span><span class="toc-date">'+esc(p.date||"")+'</span>';item.onclick=(function(idx){return function(){goToPage(idx+1);showTab("read")}})(i);list.appendChild(item)})}
-function goToPage(n){var prev=document.getElementById("page-"+currentPage);if(prev)prev.classList.remove("active");currentPage=n;var next=document.getElementById("page-"+currentPage);if(next)next.classList.add("active");document.querySelectorAll(".nav-dot").forEach(function(d,i){d.classList.toggle("active",i===n-1)});updateNav()}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function renderPages(){
+  var c=document.getElementById('pages-container');c.innerHTML='';
+  poems.forEach(function(p,i){
+    var d=document.createElement('div');d.className='page'+(i===0?' active':'');d.id='page-'+(i+1);
+    var linesHTML=p.lines.map(function(l){var s=document.createElement('span');s.className='line';s.textContent=l;return s.outerHTML}).join('');
+    d.innerHTML='<div><div class="poem-counter"><div class="poem-counter-line"></div><span class="poem-counter-num">'+String(i+1).padStart(2,'0')+' / '+String(poems.length).padStart(2,'0')+'</span><div class="poem-counter-line r"></div></div>'+(p.title?'<div class="poem-title-text">'+esc(p.title)+'</div>':'')+'<div class="poem-divider"><span></span><span></span><span></span><span></span><span></span></div><div class="poem-body">'+linesHTML+'</div></div><div class="poem-meta"><div class="poem-author-line">\u2014 '+esc(p.author)+'</div>'+(p.date?'<div class="poem-date-line">'+esc(p.date)+'</div>':'')+'</div>';
+    c.appendChild(d);
+  });
+  currentPage=1;renderDots();updateNav();
+}
+function renderDots(){
+  var dots=document.getElementById('nav-dots');dots.innerHTML='';
+  poems.forEach(function(_,i){var dot=document.createElement('button');dot.className='nav-dot'+(i===0?' active':'');dot.addEventListener('click',(function(n){return function(){goToPage(n+1)}})(i));dots.appendChild(dot)});
+}
+function renderTOC(){
+  var list=document.getElementById('toc-list');list.innerHTML='';
+  poems.forEach(function(p,i){
+    var item=document.createElement('div');item.className='toc-item';
+    var num=document.createElement('div');num.className='toc-num';num.textContent=i+1;
+    var name=document.createElement('span');name.className='toc-name';name.textContent=p.title||'(శీర్షిక లేదు)';
+    var date=document.createElement('span');date.className='toc-date';date.textContent=p.date||'';
+    item.appendChild(num);item.appendChild(name);item.appendChild(date);
+    item.addEventListener('click',(function(n){return function(){goToPage(n+1);showTab('read')}})(i));
+    list.appendChild(item);
+  });
+}
+function goToPage(n){
+  var prev=document.getElementById('page-'+currentPage);if(prev)prev.classList.remove('active');
+  currentPage=n;
+  var next=document.getElementById('page-'+currentPage);if(next)next.classList.add('active');
+  document.querySelectorAll('.nav-dot').forEach(function(d,i){d.classList.toggle('active',i===n-1)});
+  updateNav();
+}
 function changePage(dir){var n=currentPage+dir;if(n>=1&&n<=poems.length)goToPage(n)}
-function updateNav(){document.getElementById("btn-prev").disabled=currentPage===1;document.getElementById("btn-next").disabled=currentPage===poems.length}
-function showTab(name){document.getElementById("tab-read").style.display=name==="read"?"block":"none";document.getElementById("tab-toc").style.display=name==="toc"?"block":"none";document.querySelectorAll(".tab").forEach(function(t,i){t.classList.toggle("active",(name==="read"&&i===0)||(name==="toc"&&i===1))})}
-document.addEventListener("keydown",function(e){if(document.getElementById("tab-read").style.display!=="none"){if(e.key==="ArrowRight")changePage(1);if(e.key==="ArrowLeft")changePage(-1)}});
+function updateNav(){document.getElementById('btn-prev').disabled=currentPage===1;document.getElementById('btn-next').disabled=currentPage===poems.length}
+function showTab(name){
+  document.getElementById('tab-read').style.display=name==='read'?'block':'none';
+  document.getElementById('tab-toc').style.display=name==='toc'?'block':'none';
+  document.querySelectorAll('.tab').forEach(function(t,i){t.classList.toggle('active',(name==='read'&&i===0)||(name==='toc'&&i===1))});
+}
+document.addEventListener('keydown',function(e){if(document.getElementById('tab-read').style.display!=='none'){if(e.key==='ArrowRight')changePage(1);if(e.key==='ArrowLeft')changePage(-1)}});
 renderPages();renderTOC();
 </script>
 </body>
