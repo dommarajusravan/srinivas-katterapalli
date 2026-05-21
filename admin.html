@@ -262,7 +262,21 @@ function renderAdminList(){
   if(!poems.length){list.innerHTML='<div class="empty-list">కవితలు ఏవీ లేవు</div>';return}
   poems.forEach(function(p,i){
     var row=document.createElement('div');row.className='poem-row';
-    row.innerHTML='<div class="poem-row-num">'+(i+1)+'</div><div class="poem-row-info"><div class="poem-row-title">'+esc(p.title||'(శీర్షిక లేదు)')+'</div>'+(p.date?'<div class="poem-row-date">'+esc(p.date)+'</div>':'')+'</div><div class="poem-row-actions"><button class="btn-edit" onclick="openEditModal('+i+')">✏️ సవరించు</button><button class="btn-danger" onclick="deletePoem('+i+')">తొలగించు</button></div>';
+    // num
+    var num=document.createElement('div');num.className='poem-row-num';num.textContent=i+1;
+    // info
+    var info=document.createElement('div');info.className='poem-row-info';
+    var titleEl=document.createElement('div');titleEl.className='poem-row-title';titleEl.textContent=p.title||'(శీర్షిక లేదు)';
+    info.appendChild(titleEl);
+    if(p.date){var dateEl=document.createElement('div');dateEl.className='poem-row-date';dateEl.textContent=p.date;info.appendChild(dateEl);}
+    // actions
+    var actions=document.createElement('div');actions.className='poem-row-actions';
+    var editBtn=document.createElement('button');editBtn.className='btn-edit';editBtn.textContent='✏️ సవరించు';
+    editBtn.addEventListener('click',(function(idx){return function(){openEditModal(idx)}})(i));
+    var delBtn=document.createElement('button');delBtn.className='btn-danger';delBtn.textContent='తొలగించు';
+    delBtn.addEventListener('click',(function(idx){return function(){deletePoem(idx)}})(i));
+    actions.appendChild(editBtn);actions.appendChild(delBtn);
+    row.appendChild(num);row.appendChild(info);row.appendChild(actions);
     list.appendChild(row);
   });
 }
