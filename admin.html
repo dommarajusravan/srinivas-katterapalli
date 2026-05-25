@@ -5,507 +5,54 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin - Kavithalu</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Tiro+Telugu:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Telugu:ital@0;1&family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --gold:#c9903a;--gold2:#e8b86d;--ink:#1c1310;--ink2:#4a3728;--ink3:#8a7060;
-  --cream:#fdf8f0;--cream2:#f5ede0;--cream3:#ede0cc;
-  --sur:rgba(255,252,247,0.95);--red:#c0392b;--grn:#2e7d32;
-  --grnbg:#edf7ed;--redbg:#fdf0ee;
-  --shlg:0 24px 80px rgba(28,19,16,.18);--shmd:0 8px 40px rgba(28,19,16,.12);
-  --shsm:0 2px 12px rgba(28,19,16,.08);--r:18px;--rs:10px;
-}
-body{background:var(--cream);color:var(--ink);font-family:"DM Sans",sans-serif;min-height:100vh}
-body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 15% 10%,rgba(201,144,58,.08) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at 85% 90%,rgba(201,144,58,.06) 0%,transparent 60%);pointer-events:none;z-index:0}
-header{position:relative;z-index:1;text-align:center;padding:2.5rem 1.5rem 1.75rem;max-width:760px;margin:0 auto;border-bottom:1px solid rgba(201,144,58,.15)}
-.badge{display:inline-block;font-size:10px;font-weight:500;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,144,58,.3);border-radius:100px;padding:5px 16px;margin-bottom:.75rem}
-.title{font-family:"Playfair Display",serif;font-size:clamp(20px,3vw,28px);font-weight:700;color:var(--ink);margin-bottom:.5rem}
-.bklink{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--ink3);text-decoration:none;padding:5px 12px;border:1px solid rgba(201,144,58,.2);border-radius:100px;transition:all .2s;margin-top:.5rem}
-.bklink:hover{color:var(--gold);border-color:var(--gold);background:rgba(201,144,58,.06)}
-main{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:2rem 1.5rem 5rem}
-
-/* gate */
-.gate{display:flex;align-items:center;justify-content:center;min-height:60vh}
-.gate-card{background:var(--sur);border:1px solid rgba(255,255,255,.9);border-radius:var(--r);box-shadow:var(--shlg);padding:3rem 2.5rem;text-align:center;width:100%;max-width:360px;position:relative;overflow:hidden}
-.gate-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold2),var(--gold),var(--gold2),transparent)}
-.gate-icon{font-size:28px;margin-bottom:.75rem;display:block;opacity:.5}
-.gate-sub{font-size:14px;color:var(--ink3);margin-bottom:1.75rem}
-.pin-box{display:block;margin:0 auto 1rem;width:170px;padding:11px 14px;font-size:22px;font-family:monospace;text-align:center;letter-spacing:.3em;border:1px solid rgba(201,144,58,.3);border-radius:10px;background:rgba(255,255,255,.7);color:var(--ink);transition:border-color .2s,box-shadow .2s}
-.pin-box:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,144,58,.12)}
-.hint{font-size:11px;color:var(--ink3);margin-top:1rem;opacity:.65}
-.err{color:var(--red);font-size:13px;margin-top:.5rem;min-height:18px;text-align:center}
-
-/* buttons */
-.btn{display:inline-flex;align-items:center;gap:6px;border-radius:100px;padding:9px 22px;font-size:13px;font-weight:500;cursor:pointer;font-family:"DM Sans",sans-serif;border:none;transition:all .2s;letter-spacing:.04em}
-.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;box-shadow:0 4px 12px rgba(201,144,58,.35)}
-.btn-gold:hover{opacity:.88;transform:translateY(-1px)}
-.btn-ghost{background:rgba(255,255,255,.65);border:1px solid rgba(201,144,58,.22);color:var(--ink2)}
-.btn-ghost:hover{background:rgba(201,144,58,.08)}
-.btn-del{background:none;border:1px solid rgba(192,57,43,.2);color:var(--red);padding:5px 12px;font-size:12px;border-radius:100px;cursor:pointer;font-family:"DM Sans",sans-serif;transition:all .2s}
-.btn-del:hover{background:var(--redbg)}
-.btn-edt{background:none;border:1px solid rgba(201,144,58,.22);color:var(--gold);padding:5px 12px;font-size:12px;border-radius:100px;cursor:pointer;font-family:"DM Sans",sans-serif;transition:all .2s}
-.btn-edt:hover{background:rgba(201,144,58,.08)}
-.btn-pub{width:100%;padding:13px;font-size:15px;border-radius:12px;border:none;cursor:pointer;font-family:"Tiro Telugu",serif;background:linear-gradient(135deg,#2e7d32,#43a047);color:#fff;box-shadow:0 4px 18px rgba(46,125,50,.3);display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s}
-.btn-pub:hover:not(:disabled){opacity:.88;transform:translateY(-1px)}
-.btn-pub:disabled{opacity:.4;cursor:not-allowed;transform:none}
-
-/* cards */
-.card{background:var(--sur);border:1px solid rgba(255,255,255,.9);border-radius:var(--r);box-shadow:var(--shmd);overflow:hidden;margin-bottom:1.25rem;position:relative}
-.card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(201,144,58,.35),transparent)}
-.card-hd{padding:1rem 1.5rem;border-bottom:1px solid rgba(201,144,58,.1);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(253,248,240,.7),transparent)}
-.card-ttl{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
-.card-bd{padding:1.5rem}
-.info{padding:.9rem 1.1rem;background:rgba(201,144,58,.07);border:1px solid rgba(201,144,58,.15);border-radius:var(--rs);font-size:13px;color:var(--ink3);line-height:1.7;margin-top:.75rem}
-
-/* status dot */
-.srow{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink3);margin-top:.85rem}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--cream3);flex-shrink:0;transition:all .3s}
-.dot.green{background:#4caf50;box-shadow:0 0 5px rgba(76,175,80,.5)}
-.dot.red{background:var(--red)}
-.dot.yellow{background:#f5a623;animation:blink 1s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
-
-/* form */
-.fld{margin-bottom:1.1rem}
-.fld label{display:block;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
-.fld input,.fld textarea{width:100%;border:1px solid rgba(201,144,58,.22);border-radius:var(--rs);padding:9px 13px;font-family:"Tiro Telugu",serif;font-size:17px;color:var(--ink);background:rgba(255,255,255,.7);resize:vertical;transition:border-color .2s,box-shadow .2s}
-.fld input:focus,.fld textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,144,58,.1)}
-.fld textarea{min-height:150px;line-height:2}
-.fhint{font-size:11px;color:var(--ink3);margin-top:4px;opacity:.75}
-.fa{display:flex;gap:9px;margin-top:1.25rem;flex-wrap:wrap}
-
-/* banner */
-.bnr{border-radius:var(--rs);font-size:13px;padding:10px 14px;margin-bottom:1.1rem;display:none;align-items:center;gap:7px}
-.bnr.show{display:flex}
-.bnr-ok{background:var(--grnbg);border:1px solid rgba(46,125,50,.2);color:var(--grn)}
-
-/* poem rows */
-.prow{display:flex;align-items:center;gap:11px;padding:13px 0;border-bottom:1px solid rgba(201,144,58,.08);transition:padding .2s}
-.prow:last-child{border-bottom:none}
-.prow:hover{padding-left:4px}
-.pnum{width:27px;height:27px;border-radius:50%;background:linear-gradient(135deg,var(--cream2),var(--cream3));border:1px solid rgba(201,144,58,.18);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--gold);flex-shrink:0}
-.pinfo{flex:1;min-width:0}
-.ptit{font-family:"Tiro Telugu",serif;font-size:16px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pdat{font-size:11px;color:var(--ink3);margin-top:2px}
-.pact{display:flex;gap:5px;flex-shrink:0}
-.empty{text-align:center;color:var(--ink3);font-size:14px;padding:2rem 0;opacity:.6}
-
-/* publish log */
-.plog{margin-top:.9rem;background:rgba(28,19,16,.04);border:1px solid rgba(201,144,58,.12);border-radius:var(--rs);padding:11px;font-size:12px;font-family:monospace;color:var(--ink3);line-height:1.9;display:none;max-height:180px;overflow-y:auto}
-.ll{display:block}
-.lok{color:var(--grn)}.lerr{color:var(--red)}.linf{color:var(--gold)}
-
-/* modal */
-.ov{position:fixed;inset:0;background:rgba(28,19,16,.5);backdrop-filter:blur(5px);z-index:100;display:none;align-items:center;justify-content:center;padding:1.5rem}
-.ov.open{display:flex;animation:fi .18s}
-@keyframes fi{from{opacity:0}to{opacity:1}}
-.modal{background:rgba(255,252,247,.98);border:1px solid rgba(255,255,255,.9);border-radius:var(--r);box-shadow:var(--shlg);width:100%;max-width:540px;overflow:hidden;position:relative;animation:su .25s cubic-bezier(.4,0,.2,1)}
-@keyframes su{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-.modal::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold2),var(--gold),var(--gold2),transparent)}
-.mhd{padding:1.35rem 1.5rem 1.1rem;border-bottom:1px solid rgba(201,144,58,.1);display:flex;align-items:center;justify-content:space-between}
-.mttl{font-family:"Playfair Display",serif;font-size:17px;font-style:italic;color:var(--ink)}
-.mcls{width:28px;height:28px;border-radius:50%;border:1px solid rgba(201,144,58,.2);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink3);font-size:15px;transition:all .2s}
-.mcls:hover{background:rgba(201,144,58,.08)}
-.mbd{padding:1.35rem 1.5rem}
-.mft{padding:.9rem 1.5rem 1.35rem;border-top:1px solid rgba(201,144,58,.1);display:flex;gap:9px;justify-content:flex-end}
-
-/* pin change */
-.pinrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.pinrow input{border:1px solid rgba(201,144,58,.22);border-radius:var(--rs);padding:8px 12px;font-size:15px;font-family:monospace;background:rgba(255,255,255,.7);color:var(--ink);text-align:center;letter-spacing:.18em;width:135px}
-.pinrow input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,144,58,.1)}
-
-/* guide */
-.gstep{display:flex;gap:11px;margin-bottom:.8rem;align-items:flex-start}
-.gnum{min-width:23px;height:23px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.gtxt{font-size:14px;color:var(--ink3);line-height:1.6}
-.gtxt code{background:rgba(201,144,58,.1);color:var(--gold);padding:1px 6px;border-radius:4px;font-size:12px}
-.hlnk{font-size:12px;color:var(--gold);text-decoration:none}
-.hlnk:hover{text-decoration:underline}
-@media(max-width:560px){.gate-card{padding:2.5rem 1.5rem}.card-bd{padding:1.1rem}.card-hd{padding:.85rem 1.1rem}}
+*,*:before,*:after{box-sizing:border-box;margin:0;padding:0}:root{--gold:#c9903a;--gold2:#e8b86d;--ink:#1c1310;--muted:#8a7060;--cream:#fdf8f0;--cream2:#f5ede0;--line:rgba(201,144,58,.18);--red:#c0392b;--green:#2e7d32}body{min-height:100vh;background:var(--cream);color:var(--ink);font-family:"DM Sans",sans-serif}body:before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 15% 10%,rgba(201,144,58,.10),transparent 60%),radial-gradient(ellipse 60% 80% at 85% 90%,rgba(201,144,58,.07),transparent 60%);pointer-events:none}header,main{position:relative;z-index:1;max-width:850px;margin:auto}header{text-align:center;padding:2.5rem 1.5rem 1.6rem;border-bottom:1px solid var(--line)}.badge{display:inline-block;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,144,58,.3);border-radius:999px;padding:5px 16px;margin-bottom:.7rem}h1{font-family:"Playfair Display",serif;font-size:clamp(23px,4vw,32px);margin-bottom:.6rem}.links{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap}.link{display:inline-flex;color:var(--muted);text-decoration:none;font-size:13px;border:1px solid var(--line);border-radius:999px;padding:6px 13px;background:rgba(255,255,255,.55)}.link:hover{color:var(--gold);border-color:var(--gold)}main{padding:2rem 1.5rem 5rem}.gate{display:flex;align-items:center;justify-content:center;min-height:60vh}.gate-card,.card,.modal{background:rgba(255,252,247,.96);border:1px solid rgba(255,255,255,.9);border-radius:18px;box-shadow:0 14px 50px rgba(28,19,16,.12);overflow:hidden}.gate-card{width:100%;max-width:380px;text-align:center;padding:3rem 2rem}.gate-icon{display:block;font-size:30px;opacity:.55;margin-bottom:.8rem}.gate-sub{font-family:"Tiro Telugu",serif;color:var(--muted);line-height:1.7;margin-bottom:1.4rem}.pin{width:180px;display:block;margin:0 auto 1rem;padding:12px 14px;text-align:center;letter-spacing:.3em;font:22px monospace}.card{margin-bottom:1.2rem}.hd{padding:1rem 1.4rem;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:1rem;background:rgba(245,237,224,.35)}.ttl{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}.bd{padding:1.4rem}.field{margin-bottom:1rem}.field label{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}input,textarea{width:100%;border:1px solid rgba(201,144,58,.25);border-radius:11px;padding:10px 13px;background:rgba(255,255,255,.75);color:var(--ink)}.field input,.field textarea{font-family:"Tiro Telugu",serif;font-size:17px}textarea{min-height:150px;resize:vertical;line-height:2}input:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,144,58,.12)}.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.row input{flex:1;min-width:180px;font:14px monospace}.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:999px;border:0;padding:9px 20px;font:500 13px "DM Sans",sans-serif;cursor:pointer}.primary{background:linear-gradient(135deg,var(--gold),var(--gold2));color:white}.ghost{background:rgba(255,255,255,.7);border:1px solid var(--line);color:var(--ink)}.danger{background:transparent;border:1px solid rgba(192,57,43,.25);color:var(--red);padding:6px 12px;font-size:12px}.edit{background:transparent;border:1px solid var(--line);color:var(--gold);padding:6px 12px;font-size:12px}.publish{width:100%;border:0;border-radius:13px;padding:14px 16px;font-family:"Tiro Telugu",serif;font-size:16px;color:white;background:linear-gradient(135deg,#2e7d32,#43a047);cursor:pointer}.publish:disabled{opacity:.45;cursor:default}.note,.hint{font-size:12px;color:var(--muted);line-height:1.7}.err{min-height:18px;color:var(--red);font-size:13px;margin-top:.5rem}.banner{display:none;margin-bottom:1rem;padding:10px 14px;border-radius:11px;background:#edf7ed;border:1px solid rgba(46,125,50,.20);color:var(--green);font-size:13px}.banner.show{display:block}.status{display:flex;align-items:center;gap:8px;margin-top:.8rem;color:var(--muted);font-size:13px}.light{width:8px;height:8px;border-radius:50%;background:#d9cbb7}.light.green{background:#4caf50}.light.red{background:var(--red)}.light.yellow{background:#f5a623;animation:pulse 1s infinite}@keyframes pulse{50%{opacity:.45}}.poem-row{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid rgba(201,144,58,.09)}.poem-row:last-child{border-bottom:0}.num{width:28px;height:28px;border-radius:50%;background:var(--cream2);border:1px solid var(--line);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}.pinfo{flex:1;min-width:0}.ptitle{font-family:"Tiro Telugu",serif;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pdate{font-size:11px;color:var(--muted);margin-top:2px}.actions{display:flex;gap:5px;flex-shrink:0}.log{display:none;margin-top:.9rem;max-height:220px;overflow:auto;border:1px solid var(--line);border-radius:11px;background:rgba(28,19,16,.04);padding:11px;font:12px/1.8 monospace;color:var(--muted)}.log span{display:block}.ok{color:var(--green)}.bad{color:var(--red)}.info{color:var(--gold)}.empty{text-align:center;color:var(--muted);padding:2rem 0;font-family:"Tiro Telugu",serif}.overlay{display:none;position:fixed;inset:0;z-index:10;align-items:center;justify-content:center;padding:1.5rem;background:rgba(28,19,16,.50);backdrop-filter:blur(5px)}.overlay.open{display:flex}.modal{width:100%;max-width:560px}.modal-hd,.modal-ft{padding:1rem 1.4rem;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.modal-ft{border-top:1px solid var(--line);border-bottom:0;justify-content:flex-end;gap:9px}.modal-title{font-family:"Playfair Display",serif;font-style:italic}.close{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:transparent;cursor:pointer;color:var(--muted)}.modal-bd{padding:1.4rem}@media(max-width:620px){.hd,.bd{padding:1rem}.actions{flex-direction:column}.edit,.danger{width:100%}}
 </style>
 </head>
 <body>
-<header>
-  <div class="badge">నిర్వహణ విభాగం</div>
-  <div class="title">కవిత్వ సంకలనం</div>
-  <a href="index.html" class="bklink">← పుస్తకానికి వెళ్ళు</a>
-</header>
+<header><div class="badge">నిర్వహణ విభాగం</div><h1>కవిత్వ సంకలనం</h1><div class="links"><a class="link" href="index.html">← పుస్తకానికి వెళ్ళు</a><a class="link" href="https://github.com/dommarajusravan/srinivas-katterapalli" target="_blank" rel="noopener">GitHub Repo ↗</a></div></header>
 <main>
-
-  <!-- PIN GATE -->
-  <div class="gate" id="gate">
-    <div class="gate-card">
-      <span class="gate-icon">🔐</span>
-      <div class="gate-sub">నిర్వహణ విభాగం తెరవడానికి<br>PIN నమోదు చేయండి</div>
-      <input type="password" class="pin-box" id="pin-box" placeholder="••••" maxlength="6"
-        onkeydown="if(event.key==='Enter')doPin()">
-      <button class="btn btn-gold" onclick="doPin()" style="margin:0 auto">తెరువు</button>
-      <div class="err" id="pin-err"></div>
-      <div class="hint">డిఫాల్ట్ PIN: 1234</div>
-    </div>
-  </div>
-
-  <!-- ADMIN PANEL -->
-  <div id="panel" style="display:none">
-
-    <!-- GitHub Token -->
-    <div class="card">
-      <div class="card-hd">
-        <span class="card-ttl">GitHub Token</span>
-        <a class="hlnk" href="https://github.com/settings/tokens/new?scopes=repo&description=Kavithalu" target="_blank">Token తయారు చేయండి ↗</a>
-      </div>
-      <div class="card-bd">
-        <div class="info" style="margin-bottom:.9rem">📌 <strong>dommarajusravan</strong> / <strong>srinivas-katterapalli</strong></div>
-        <div class="fld" style="margin:0">
-          <label>Personal Access Token <span style="text-transform:none;letter-spacing:0;font-size:10px;opacity:.6">(repo scope)</span></label>
-          <div style="display:flex;gap:7px">
-            <input type="password" id="tok" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
-              oninput="saveTok()" style="flex:1;font-family:monospace;font-size:14px">
-            <button class="btn btn-ghost" onclick="togTok()" style="padding:9px 13px;border-radius:10px;flex-shrink:0">👁</button>
-            <button class="btn btn-ghost" onclick="testConn()" style="flex-shrink:0">పరీక్షించు</button>
-          </div>
-        </div>
-        <div class="srow"><div class="dot" id="cdot"></div><span id="cst">పరీక్షించబడలేదు</span></div>
-        <div class="info">🔐 Token మీ browser లో మాత్రమే నిల్వ అవుతుంది. GitHub API కి నేరుగా పంపబడుతుంది.</div>
-      </div>
-    </div>
-
-    <!-- Add poem -->
-    <div class="card">
-      <div class="card-hd"><span class="card-ttl">కొత్త కవిత జోడించండి</span></div>
-      <div class="card-bd">
-        <div class="bnr bnr-ok" id="b-add">✓ కవిత జోడించబడింది! ఇప్పుడు పబ్లిష్ చేయండి.</div>
-        <div class="fld"><label>శీర్షిక</label><input type="text" id="n-tit" placeholder="కవిత శీర్షిక..."></div>
-        <div class="fld">
-          <label>కవిత / సూక్తి</label>
-          <textarea id="n-bod" placeholder="కవిత ఇక్కడ రాయండి...&#10;ప్రతి పంక్తి కొత్త లైన్‌లో రాయండి"></textarea>
-          <div class="fhint">ప్రతి పంక్తి కొత్త లైన్‌లో రాయండి</div>
-        </div>
-        <div class="fld"><label>తేదీ (ఐచ్ఛికం)</label><input type="text" id="n-dat" placeholder="ఉదా: 22 మే 2026"></div>
-        <div class="fa">
-          <button class="btn btn-gold" onclick="addPoem()">జోడించు</button>
-          <button class="btn btn-ghost" onclick="clrF()">రద్దు</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Poem list -->
-    <div class="card">
-      <div class="card-hd">
-        <span class="card-ttl">ఇప్పటి కవితలు</span>
-        <span id="pcnt" style="font-size:12px;color:var(--ink3)"></span>
-      </div>
-      <div class="card-bd" style="padding-top:.6rem;padding-bottom:.6rem">
-        <div id="plist"></div>
-      </div>
-    </div>
-
-    <!-- Publish -->
-    <div class="card">
-      <div class="card-hd"><span class="card-ttl">GitHub లో పబ్లిష్ చేయండి</span></div>
-      <div class="card-bd">
-        <p style="font-size:14px;color:var(--ink3);line-height:1.7;margin-bottom:1.1rem">
-          బటన్ నొక్కితే కవితలన్నీ నేరుగా GitHub కి పంపబడతాయి. 1–2 నిమిషాలలో లైవ్!
-        </p>
-        <button class="btn-pub" id="pbtn" onclick="publish()"><span>🚀</span> GitHub లో పబ్లిష్ చేయి</button>
-        <div class="plog" id="plog"></div>
-      </div>
-    </div>
-
-    <!-- Setup guide -->
-    <div class="card">
-      <div class="card-hd"><span class="card-ttl">మొదటిసారి సెటప్ గైడ్</span></div>
-      <div class="card-bd">
-        <div class="gstep"><div class="gnum">1</div><div class="gtxt">github.com లో <code>srinivas-katterapalli</code> పేరుతో Public repository తెరవండి</div></div>
-        <div class="gstep"><div class="gnum">2</div><div class="gtxt">Token తయారు చేసి పైన పేస్ట్ చేయండి → పరీక్షించు → పబ్లిష్ నొక్కండి</div></div>
-        <div class="gstep"><div class="gnum">3</div><div class="gtxt">Repo → Settings → Pages → Branch: <code>main</code> → Save <em style="opacity:.6">(ఒక్కసారి మాత్రమే)</em></div></div>
-        <div class="gstep"><div class="gnum">4</div><div class="gtxt">మీ వెబ్‌సైట్: <code>dommarajusravan.github.io/srinivas-katterapalli</code> ✨</div></div>
-      </div>
-    </div>
-
-    <!-- Change PIN -->
-    <div class="card">
-      <div class="card-hd"><span class="card-ttl">PIN మార్చండి</span></div>
-      <div class="card-bd">
-        <div class="pinrow">
-          <input type="password" id="np" placeholder="కొత్త PIN" maxlength="6">
-          <input type="password" id="cp" placeholder="మళ్ళీ రాయండి" maxlength="6">
-          <button class="btn btn-ghost" onclick="chPin()">మార్చు</button>
-        </div>
-        <div class="err" id="perr" style="text-align:left;margin-top:.5rem"></div>
-      </div>
-    </div>
-
-  </div><!-- /panel -->
+<section class="gate" id="gate"><div class="gate-card"><span class="gate-icon">🔐</span><div class="gate-sub">నిర్వహణ విభాగం తెరవడానికి<br>PIN నమోదు చేయండి</div><input class="pin" id="pin-box" type="password" maxlength="8" placeholder="••••" onkeydown="if(event.key==='Enter')unlockAdmin()"><button class="btn primary" onclick="unlockAdmin()">తెరువు</button><div class="err" id="pin-error"></div><div class="hint">డిఫాల్ట్ PIN: 1234</div></div></section>
+<section id="panel" style="display:none">
+<div class="card"><div class="hd"><span class="ttl">GitHub Token</span><a class="link" href="https://github.com/settings/tokens/new?scopes=repo&description=Kavithalu" target="_blank" rel="noopener">Token తయారు చేయండి ↗</a></div><div class="bd"><div class="note" style="margin-bottom:.8rem">Repo: <strong>dommarajusravan/srinivas-katterapalli</strong></div><div class="row"><input id="token" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" oninput="saveToken()"><button class="btn ghost" onclick="toggleToken()">👁</button><button class="btn ghost" onclick="testConnection()">పరీక్షించు</button></div><div class="status"><span class="light" id="conn-light"></span><span id="conn-text">పరీక్షించబడలేదు</span></div><div class="note" style="margin-top:.8rem">🔐 Token మీ browser లో మాత్రమే నిల్వ అవుతుంది. Publishing కోసం GitHub API కి పంపబడుతుంది.</div></div></div>
+<div class="card"><div class="hd"><span class="ttl">కొత్త కవిత జోడించండి</span></div><div class="bd"><div class="banner" id="add-banner">✓ కవిత జోడించబడింది. ఇప్పుడు పబ్లిష్ చేయండి.</div><div class="field"><label>శీర్షిక</label><input id="new-title" type="text" placeholder="కవిత శీర్షిక..."></div><div class="field"><label>కవిత / సూక్తి</label><textarea id="new-body" placeholder="కవిత ఇక్కడ రాయండి...&#10;ప్రతి పంక్తి కొత్త లైన్‌లో రాయండి"></textarea><div class="hint">ప్రతి పంక్తి కొత్త లైన్‌లో రాయండి</div></div><div class="field"><label>తేదీ</label><input id="new-date" type="text" placeholder="ఉదా: 22 మే 2026"></div><div class="row"><button class="btn primary" onclick="addPoem()">జోడించు</button><button class="btn ghost" onclick="clearForm()">రద్దు</button></div></div></div>
+<div class="card"><div class="hd"><span class="ttl">ఇప్పటి కవితలు</span><span class="note" id="poem-count"></span></div><div class="bd" style="padding-top:.6rem;padding-bottom:.6rem"><div id="poem-list"></div></div></div>
+<div class="card"><div class="hd"><span class="ttl">GitHub లో పబ్లిష్ చేయండి</span></div><div class="bd"><p class="note" style="margin-bottom:1rem">పబ్లిష్ నొక్కితే index.html లో కవితలు, admin.html లో PIN/seed data మాత్రమే update అవుతాయి. Admin page ఇక live DOM నుంచి overwrite కాదు.</p><button class="publish" id="publish-btn" onclick="publish()">🚀 GitHub లో పబ్లిష్ చేయి</button><div class="log" id="log"></div></div></div>
+<div class="card"><div class="hd"><span class="ttl">PIN మార్చండి</span></div><div class="bd"><div class="row"><input id="new-pin" type="password" maxlength="8" placeholder="కొత్త PIN"><input id="confirm-pin" type="password" maxlength="8" placeholder="మళ్ళీ రాయండి"><button class="btn ghost" onclick="changePin()">మార్చు</button></div><div class="err" id="pin-change-msg" style="text-align:left"></div></div></div>
+</section>
 </main>
-
-<!-- EDIT MODAL -->
-<div class="ov" id="ov" onclick="if(event.target===this)closeMod()">
-  <div class="modal">
-    <div class="mhd">
-      <span class="mttl">కవిత సవరించండి</span>
-      <button class="mcls" onclick="closeMod()">✕</button>
-    </div>
-    <div class="mbd">
-      <div class="bnr bnr-ok" id="b-edt">✓ కవిత సేవ్ అయింది! పబ్లిష్ చేయండి.</div>
-      <div class="fld"><label>శీర్షిక</label><input type="text" id="e-tit" placeholder="కవిత శీర్షిక..."></div>
-      <div class="fld">
-        <label>కవిత / సూక్తి</label>
-        <textarea id="e-bod" style="min-height:170px"></textarea>
-        <div class="fhint">ప్రతి పంక్తి కొత్త లైన్‌లో రాయండి</div>
-      </div>
-      <div class="fld"><label>తేదీ</label><input type="text" id="e-dat" placeholder="ఉదా: 22 మే 2026"></div>
-    </div>
-    <div class="mft">
-      <button class="btn btn-ghost" onclick="closeMod()">రద్దు</button>
-      <button class="btn btn-gold" onclick="saveEdt()">💾 సేవ్ చేయి</button>
-    </div>
-  </div>
-</div>
-
+<div class="overlay" id="edit-overlay" onclick="if(event.target===this)closeEditor()"><div class="modal"><div class="modal-hd"><span class="modal-title">కవిత సవరించండి</span><button class="close" onclick="closeEditor()">✕</button></div><div class="modal-bd"><div class="banner" id="edit-banner">✓ కవిత సేవ్ అయింది. పబ్లిష్ చేయండి.</div><div class="field"><label>శీర్షిక</label><input id="edit-title" type="text"></div><div class="field"><label>కవిత / సూక్తి</label><textarea id="edit-body" style="min-height:180px"></textarea></div><div class="field"><label>తేదీ</label><input id="edit-date" type="text"></div></div><div class="modal-ft"><button class="btn ghost" onclick="closeEditor()">రద్దు</button><button class="btn primary" onclick="saveEdit()">💾 సేవ్ చేయి</button></div></div></div>
 <script>
-// ═══════════════════════════════════════════════════════
-// DATA — these two lines are updated automatically on publish
-var PIN = '1234';       // @@PINMARK@@
-var SEED = [{"id": 1, "title": "\u0c28\u0c30 \u0c38\u0c3f\u0c02\u0c39 \u0c38\u0c4d\u0c24\u0c41\u0c24\u0c3f", "lines": ["\u0c1a\u0c24\u0c41\u0c30\u0c4d\u0c26\u0c3e\u0c35\u0c24\u0c3e\u0c30 \u0c2a\u0c41\u0c30\u0c41\u0c37\u0c41\u0c21\u0c41", "\u0c28\u0c30 \u0c38\u0c3f\u0c02\u0c39 \u0c38\u0c4d\u0c35\u0c30\u0c42\u0c2a\u0c41\u0c21\u0c41", "\u0c2d\u0c15\u0c4d\u0c24\u0c2a\u0c4d\u0c30\u0c39\u0c4d\u0c32\u0c3e\u0c26 \u0c35\u0c30\u0c26\u0c41\u0c21\u0c41", "\u0c2d\u0c35\u0c2c\u0c02\u0c27\u0c28 \u0c35\u0c3f\u0c2e\u0c41\u0c15\u0c4d\u0c24\u0c41\u0c21\u0c41", "\u0c38\u0c30\u0c4d\u0c35\u0c32\u0c4b\u0c15 \u0c2a\u0c3e\u0c32\u0c15\u0c41\u0c21\u0c41", "\u0c38\u0c3e\u0c27\u0c41 \u0c1c\u0c28 \u0c30\u0c15\u0c4d\u0c37\u0c15\u0c41\u0c28\u0c3f\u0c15\u0c3f", "\u0c1c\u0c2f\u0c2e\u0c41 \u0c1c\u0c2f\u0c2e\u0c41 ...."], "author": "\u0c15\u0c24\u0c4d\u0c24\u0c46\u0c30\u0c2a\u0c32\u0c4d\u0c32\u0c3f \u0c36\u0c4d\u0c30\u0c40\u0c28\u0c3f\u0c35\u0c3e\u0c38\u0c41\u0c32\u0c41 \u0c30\u0c46\u0c21\u0c4d\u0c21\u0c3f", "date": "30 \u0c0f\u0c2a\u0c4d\u0c30\u0c3f\u0c32\u0c4d 2026"}];       // @@SEEDMARK@@
-// INDEX TEMPLATE — updated automatically on publish
-var ITPL = "<!DOCTYPE html>\n<html lang=\"te\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>\u0c2a\u0c26\u0c4d\u0c2f \u0c2e\u0c3e\u0c32\u0c3f\u0c15 - \u0c15\u0c24\u0c4d\u0c24\u0c46\u0c30\u0c2a\u0c32\u0c4d\u0c32\u0c3f \u0c36\u0c4d\u0c30\u0c40\u0c28\u0c3f\u0c35\u0c3e\u0c38\u0c41\u0c32\u0c41 \u0c30\u0c46\u0c21\u0c4d\u0c21\u0c3f</title>\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link href=\"https://fonts.googleapis.com/css2?family=Tiro+Telugu:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap\" rel=\"stylesheet\">\n<style>\n*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}\n:root{--ink:#1c1310;--ink2:#4a3728;--ink3:#8a7060;--gold:#c9903a;--gold2:#e8b86d;--cream:#fdf8f0;--cream2:#f5ede0;--cream3:#ede0cc;--glass:rgba(255,252,247,.88);--shadow-lg:0 24px 80px rgba(28,19,16,.18);--shadow-sm:0 2px 12px rgba(28,19,16,.08);--radius:20px}\nbody{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}\nbody::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 15% 10%,rgba(201,144,58,.10) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at 85% 90%,rgba(201,144,58,.08) 0%,transparent 60%);pointer-events:none;z-index:0}\nheader{position:relative;z-index:10;text-align:center;padding:4rem 2rem 2.5rem;max-width:780px;margin:0 auto}\n.hbadge{display:inline-block;font-size:10px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);background:linear-gradient(135deg,rgba(201,144,58,.12),rgba(232,184,109,.08));border:1px solid rgba(201,144,58,.25);border-radius:100px;padding:6px 18px;margin-bottom:1.5rem}\n.horn{display:flex;align-items:center;justify-content:center;gap:12px;margin:.75rem 0 1.25rem}\n.horn .hl{height:1px;width:60px;background:linear-gradient(90deg,transparent,var(--gold2),transparent)}\n.horn .hd{width:6px;height:6px;background:var(--gold);transform:rotate(45deg);box-shadow:0 0 8px rgba(201,144,58,.5)}\n.htitle{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,48px);font-weight:700;line-height:1.15;color:var(--ink);letter-spacing:-.01em;margin-bottom:.6rem}\n.hsub{font-family:'Tiro Telugu',serif;font-size:16px;color:var(--ink3);font-style:italic}\n.hrule{width:100%;max-width:500px;height:1px;background:linear-gradient(90deg,transparent,var(--cream3) 20%,var(--gold2) 50%,var(--cream3) 80%,transparent);margin:2rem auto 0}\nmain{position:relative;z-index:10;max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem}\n.tabs{display:flex;gap:4px;background:var(--glass);backdrop-filter:blur(16px);border:1px solid rgba(201,144,58,.15);border-radius:100px;padding:5px;margin-bottom:2.5rem;box-shadow:var(--shadow-sm),inset 0 1px 0 rgba(255,255,255,.8)}\n.tab{flex:1;padding:10px 16px;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;text-align:center;cursor:pointer;color:var(--ink3);border:none;border-radius:100px;background:transparent;font-family:'DM Sans',sans-serif;transition:all .25s}\n.tab.on{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;box-shadow:0 4px 14px rgba(201,144,58,.4)}\n.book{background:var(--glass);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.9);border-radius:var(--radius);box-shadow:var(--shadow-lg),inset 0 1px 0 #fff;overflow:hidden;position:relative}\n.book::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold2),var(--gold),var(--gold2),transparent)}\n.page{display:none;padding:3.5rem 3rem 2.5rem;min-height:440px;flex-direction:column;justify-content:space-between;animation:fu .4s cubic-bezier(.4,0,.2,1)}\n.page.on{display:flex}\n@keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}\n.pctr{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:2rem}\n.pnum{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}\n.pln{height:1px;flex:1;max-width:40px;background:linear-gradient(90deg,transparent,var(--cream3))}\n.pln.r{background:linear-gradient(90deg,var(--cream3),transparent)}\n.ptitle{font-family:'Playfair Display',serif;font-size:clamp(18px,3vw,26px);font-weight:400;font-style:italic;color:var(--ink);text-align:center;margin-bottom:2rem;line-height:1.3}\n.pdiv{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 auto 2.5rem}\n.pdiv span{width:4px;height:4px;border-radius:50%;background:var(--gold2)}\n.pdiv span:first-child,.pdiv span:last-child{opacity:.4}\n.pbody{font-family:'Tiro Telugu',serif;font-size:clamp(18px,2.5vw,24px);line-height:2.2;color:var(--ink);text-align:center;flex:1}\n.pbody .ln{display:block}\n.pmeta{margin-top:2.5rem;display:flex;flex-direction:column;align-items:flex-end;gap:4px;padding-top:1.5rem;border-top:1px solid rgba(201,144,58,.12)}\n.pauth{font-family:'Tiro Telugu',serif;font-size:14px;color:var(--ink3);font-style:italic}\n.pdate{font-size:11px;color:var(--gold);letter-spacing:.08em}\n.nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 2.5rem;border-top:1px solid rgba(201,144,58,.1);background:linear-gradient(to bottom,transparent,rgba(245,237,224,.4))}\n.nbtn{background:none;border:1px solid rgba(201,144,58,.25);border-radius:100px;padding:8px 20px;font-size:12px;font-weight:500;cursor:pointer;color:var(--ink2);font-family:'DM Sans',sans-serif;transition:all .2s}\n.nbtn:hover:not(:disabled){background:linear-gradient(135deg,var(--gold),var(--gold2));border-color:transparent;color:#fff;box-shadow:0 4px 14px rgba(201,144,58,.35)}\n.nbtn:disabled{opacity:.25;cursor:default}\n.dots{display:flex;gap:6px;align-items:center}\n.dot{width:6px;height:6px;border-radius:50%;background:var(--cream3);transition:all .3s;cursor:pointer;border:none;padding:0}\n.dot.on{width:18px;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--gold2))}\n.toc{padding:2rem 2.5rem}\n.tocttl{font-size:10px;font-weight:500;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem}\n.toci{display:flex;align-items:center;gap:16px;padding:14px 8px;border-bottom:1px solid rgba(201,144,58,.08);cursor:pointer;transition:all .2s;border-radius:8px}\n.toci:last-child{border-bottom:none}\n.toci:hover{background:rgba(201,144,58,.05);padding-left:14px}\n.tocn{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--cream2),var(--cream3));border:1px solid rgba(201,144,58,.2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--gold);flex-shrink:0}\n.tocname{font-family:'Tiro Telugu',serif;font-size:18px;color:var(--ink);flex:1;transition:color .2s}\n.toci:hover .tocname{color:var(--gold)}\n.tocdt{font-size:11px;color:var(--ink3)}\n@media(max-width:600px){header{padding:3rem 1.25rem 2rem}.page{padding:2.5rem 1.5rem 2rem}.nav{padding:1rem 1.5rem}.toc{padding:1.5rem}}\n</style>\n</head>\n<body>\n<header>\n  <div class=\"hbadge\">\u0c15\u0c35\u0c3f\u0c24\u0c4d\u0c35 \u0c38\u0c02\u0c15\u0c32\u0c28\u0c02</div>\n  <div class=\"horn\"><div class=\"hl\"></div><div class=\"hd\"></div><div class=\"hl\"></div></div>\n  <h1 class=\"htitle\">\u0c2a\u0c26\u0c4d\u0c2f \u0c2e\u0c3e\u0c32\u0c3f\u0c15</h1>\n  <div class=\"hsub\">\u0c15\u0c24\u0c4d\u0c24\u0c46\u0c30\u0c2a\u0c32\u0c4d\u0c32\u0c3f \u0c36\u0c4d\u0c30\u0c40\u0c28\u0c3f\u0c35\u0c3e\u0c38\u0c41\u0c32\u0c41 \u0c30\u0c46\u0c21\u0c4d\u0c21\u0c3f</div>\n  <div class=\"hrule\"></div>\n</header>\n<main>\n  <div class=\"tabs\">\n    <button class=\"tab on\" onclick=\"showTab('read')\">\u0c1a\u0c26\u0c35\u0c41</button>\n    <button class=\"tab\" onclick=\"showTab('toc')\">\u0c35\u0c3f\u0c37\u0c2f \u0c38\u0c42\u0c1a\u0c3f\u0c15</button>\n  </div>\n  <div id=\"vread\">\n    <div class=\"book\">\n      <div id=\"pages\"></div>\n      <div class=\"nav\">\n        <button class=\"nbtn\" id=\"bp\" onclick=\"go(-1)\">\u2190 \u0c35\u0c46\u0c28\u0c41\u0c15</button>\n        <div class=\"dots\" id=\"dots\"></div>\n        <button class=\"nbtn\" id=\"bn\" onclick=\"go(1)\">\u0c2e\u0c41\u0c02\u0c26\u0c41 \u2192</button>\n      </div>\n    </div>\n  </div>\n  <div id=\"vtoc\" style=\"display:none\">\n    <div class=\"book\"><div class=\"toc\"><div class=\"tocttl\">\u0c05\u0c28\u0c4d\u0c28\u0c3f \u0c15\u0c35\u0c3f\u0c24\u0c32\u0c41</div><div id=\"toclist\"></div></div></div>\n  </div>\n</main>\n<script>\nvar poems=/*%%POEMS%%*/[];\nvar cur=1;\nfunction esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;')}\nfunction build(){\n  var c=document.getElementById('pages');c.innerHTML='';\n  poems.forEach(function(p,i){\n    var d=document.createElement('div');d.className='page'+(i===0?' on':'');d.id='p'+(i+1);\n    var lines=p.lines.map(function(l){var s=document.createElement('span');s.className='ln';s.textContent=l;return s.outerHTML}).join('');\n    d.innerHTML='<div><div class=\"pctr\"><div class=\"pln\"></div><span class=\"pnum\">'+String(i+1).padStart(2,'0')+' / '+String(poems.length).padStart(2,'0')+'</span><div class=\"pln r\"></div></div>'+(p.title?'<div class=\"ptitle\">'+esc(p.title)+'</div>':'')+'<div class=\"pdiv\"><span></span><span></span><span></span><span></span><span></span></div><div class=\"pbody\">'+lines+'</div></div><div class=\"pmeta\"><div class=\"pauth\">\u2014 '+esc(p.author)+'</div>'+(p.date?'<div class=\"pdate\">'+esc(p.date)+'</div>':'')+'</div>';\n    c.appendChild(d);\n  });\n  cur=1;buildDots();nav();\n}\nfunction buildDots(){\n  var el=document.getElementById('dots');el.innerHTML='';\n  poems.forEach(function(_,i){var b=document.createElement('button');b.className='dot'+(i===0?' on':'');b.addEventListener('click',(function(n){return function(){jump(n+1)}})(i));el.appendChild(b)});\n}\nfunction buildToc(){\n  var el=document.getElementById('toclist');el.innerHTML='';\n  poems.forEach(function(p,i){\n    var item=document.createElement('div');item.className='toci';\n    var n=document.createElement('div');n.className='tocn';n.textContent=i+1;\n    var nm=document.createElement('span');nm.className='tocname';nm.textContent=p.title||'(\u0c36\u0c40\u0c30\u0c4d\u0c37\u0c3f\u0c15 \u0c32\u0c47\u0c26\u0c41)';\n    var dt=document.createElement('span');dt.className='tocdt';dt.textContent=p.date||'';\n    item.appendChild(n);item.appendChild(nm);item.appendChild(dt);\n    item.addEventListener('click',(function(n){return function(){jump(n+1);showTab('read')}})(i));\n    el.appendChild(item);\n  });\n}\nfunction jump(n){\n  var p=document.getElementById('p'+cur);if(p)p.classList.remove('on');\n  cur=n;var nx=document.getElementById('p'+cur);if(nx)nx.classList.add('on');\n  document.querySelectorAll('.dot').forEach(function(d,i){d.classList.toggle('on',i===n-1)});\n  nav();\n}\nfunction go(d){var n=cur+d;if(n>=1&&n<=poems.length)jump(n)}\nfunction nav(){document.getElementById('bp').disabled=cur===1;document.getElementById('bn').disabled=cur===poems.length}\nfunction showTab(t){\n  document.getElementById('vread').style.display=t==='read'?'block':'none';\n  document.getElementById('vtoc').style.display=t==='toc'?'block':'none';\n  document.querySelectorAll('.tab').forEach(function(el,i){el.classList.toggle('on',(t==='read'&&i===0)||(t==='toc'&&i===1))});\n}\ndocument.addEventListener('keydown',function(e){if(document.getElementById('vread').style.display!=='none'){if(e.key==='ArrowRight')go(1);if(e.key==='ArrowLeft')go(-1)}});\nbuild();buildToc();\n</script>\n</body>\n</html>";       // @@ITPLMARK@@
-// ═══════════════════════════════════════════════════════
-
-var GH_USER = 'dommarajusravan';
-var GH_REPO = 'srinivas-katterapalli';
-var LSP = 'kav5';
-var LST = 'kavt5';
-var ei = -1;
-
-// ── Persistence ─────────────────────────────────────────
-function lp() {
-  try {
-    var s = localStorage.getItem(LSP);
-    if (s) { var a = JSON.parse(s); if (Array.isArray(a) && a.length) return a; }
-  } catch(e) {}
-  return JSON.parse(JSON.stringify(SEED));
-}
-function sp() { try { localStorage.setItem(LSP, JSON.stringify(poems)); } catch(e) {} }
-var poems = lp();
-
-// ── Helpers ──────────────────────────────────────────────
-function showB(id) {
-  var el = document.getElementById(id);
-  el.classList.add('show');
-  setTimeout(function() { el.classList.remove('show'); }, 4000);
-}
-function log(msg, cls) {
-  var b = document.getElementById('plog');
-  b.style.display = 'block';
-  var l = document.createElement('span');
-  l.className = 'll' + (cls ? ' ' + cls : '');
-  l.textContent = msg;
-  b.appendChild(l);
-  b.scrollTop = b.scrollHeight;
-}
-function clrLog() {
-  var b = document.getElementById('plog');
-  b.innerHTML = '';
-  b.style.display = 'none';
-}
-
-// ── PIN ──────────────────────────────────────────────────
-function doPin() {
-  var v = document.getElementById('pin-box').value;
-  if (v === PIN) {
-    document.getElementById('gate').style.display = 'none';
-    document.getElementById('panel').style.display = 'block';
-    var t = localStorage.getItem(LST);
-    if (t) document.getElementById('tok').value = t;
-    render();
-  } else {
-    document.getElementById('pin-err').textContent = 'తప్పు PIN. మళ్ళీ ప్రయత్నించండి.';
-  }
-}
-function chPin() {
-  var nv = document.getElementById('np').value.trim();
-  var cv = document.getElementById('cp').value.trim();
-  var m = document.getElementById('perr');
-  if (!nv || nv.length < 4) { m.style.color = 'var(--red)'; m.textContent = 'కనీసం 4 అంకెలు రాయండి'; return; }
-  if (nv !== cv) { m.style.color = 'var(--red)'; m.textContent = 'రెండు PIN లు సమానంగా లేవు'; return; }
-  PIN = nv;
-  m.style.color = 'var(--grn)'; m.textContent = 'PIN మార్చబడింది! పబ్లిష్ చేయండి.';
-  document.getElementById('np').value = '';
-  document.getElementById('cp').value = '';
-}
-
-// ── Token ─────────────────────────────────────────────────
-function saveTok() { localStorage.setItem(LST, document.getElementById('tok').value.trim()); }
-function getTok() { return document.getElementById('tok').value.trim() || localStorage.getItem(LST) || ''; }
-function togTok() { var i = document.getElementById('tok'); i.type = i.type === 'password' ? 'text' : 'password'; }
-async function testConn() {
-  var t = getTok(), d = document.getElementById('cdot'), s = document.getElementById('cst');
-  d.className = 'dot yellow'; s.textContent = 'పరీక్షిస్తున్నాం...';
-  if (!t) { d.className = 'dot red'; s.textContent = 'Token నమోదు చేయండి'; return; }
-  try {
-    var r = await fetch('https://api.github.com/user', {
-      headers: { 'Authorization': 'token ' + t, 'Accept': 'application/vnd.github.v3+json' }
-    });
-    if (r.ok) {
-      var j = await r.json();
-      d.className = 'dot green'; s.textContent = '✓ విజయవంతం! (@' + j.login + ')';
-    } else {
-      d.className = 'dot red'; s.textContent = '✗ Token తప్పు లేదా గడువు తీరింది';
-    }
-  } catch(e) { d.className = 'dot red'; s.textContent = '✗ Error: ' + e.message; }
-}
-
-// ── Poem list ─────────────────────────────────────────────
-function render() {
-  var list = document.getElementById('plist');
-  list.innerHTML = '';
-  document.getElementById('pcnt').textContent = poems.length + ' కవితలు';
-  if (!poems.length) {
-    list.innerHTML = '<div class="empty">కవితలు ఏవీ లేవు</div>';
-    return;
-  }
-  poems.forEach(function(p, i) {
-    var row = document.createElement('div'); row.className = 'prow';
-    var num = document.createElement('div'); num.className = 'pnum'; num.textContent = i + 1;
-    var inf = document.createElement('div'); inf.className = 'pinfo';
-    var tt = document.createElement('div'); tt.className = 'ptit'; tt.textContent = p.title || '(శీర్షిక లేదు)'; inf.appendChild(tt);
-    if (p.date) { var dt = document.createElement('div'); dt.className = 'pdat'; dt.textContent = p.date; inf.appendChild(dt); }
-    var act = document.createElement('div'); act.className = 'pact';
-    var eb = document.createElement('button'); eb.className = 'btn-edt'; eb.textContent = '✏️ సవరించు';
-    eb.addEventListener('click', (function(idx) { return function() { openMod(idx); }; })(i));
-    var db = document.createElement('button'); db.className = 'btn-del'; db.textContent = 'తొలగించు';
-    db.addEventListener('click', (function(idx) { return function() { delPoem(idx); }; })(i));
-    act.appendChild(eb); act.appendChild(db);
-    row.appendChild(num); row.appendChild(inf); row.appendChild(act);
-    list.appendChild(row);
-  });
-}
-
-// ── Add / Delete ──────────────────────────────────────────
-function addPoem() {
-  var t = document.getElementById('n-tit').value.trim();
-  var b = document.getElementById('n-bod').value.trim();
-  var d = document.getElementById('n-dat').value.trim();
-  if (!b) { alert('కవిత రాయండి!'); return; }
-  var lines = b.split('
-').map(function(l) { return l.trim(); }).filter(Boolean);
-  poems.push({ id: Date.now(), title: t, lines: lines, author: 'కత్తెరపల్లి శ్రీనివాసులు రెడ్డి', date: d });
-  sp(); render(); clrF(); showB('b-add');
-}
-function delPoem(idx) {
-  if (poems.length === 1) { alert('కనీసం ఒక కవిత ఉండాలి!'); return; }
-  if (!confirm('ఈ కవిత తొలగించాలా?')) return;
-  poems.splice(idx, 1); sp(); render();
-}
-function clrF() {
-  document.getElementById('n-tit').value = '';
-  document.getElementById('n-bod').value = '';
-  document.getElementById('n-dat').value = '';
-}
-
-// ── Edit modal ────────────────────────────────────────────
-function openMod(idx) {
-  ei = idx; var p = poems[idx];
-  document.getElementById('e-tit').value = p.title || '';
-  document.getElementById('e-bod').value = p.lines.join('
-');
-  document.getElementById('e-dat').value = p.date || '';
-  document.getElementById('b-edt').classList.remove('show');
-  document.getElementById('ov').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeMod() {
-  document.getElementById('ov').classList.remove('open');
-  document.body.style.overflow = ''; ei = -1;
-}
-function saveEdt() {
-  if (ei < 0) return;
-  var t = document.getElementById('e-tit').value.trim();
-  var b = document.getElementById('e-bod').value.trim();
-  var d = document.getElementById('e-dat').value.trim();
-  if (!b) { alert('కవిత రాయండి!'); return; }
-  var lines = b.split('
-').map(function(l) { return l.trim(); }).filter(Boolean);
-  poems[ei] = Object.assign({}, poems[ei], { title: t, lines: lines, date: d });
-  sp(); render(); showB('b-edt');
-}
-document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMod(); });
-
-// ── GitHub API ────────────────────────────────────────────
-async function ghPut(tok, path, content, msg) {
-  var url = 'https://api.github.com/repos/' + GH_USER + '/' + GH_REPO + '/contents/' + path;
-  var sha = null;
-  try {
-    var gr = await fetch(url, { headers: { 'Authorization': 'token ' + tok, 'Accept': 'application/vnd.github.v3+json' } });
-    if (gr.ok) { var gd = await gr.json(); sha = gd.sha || null; }
-  } catch(e) {}
-  var body = { message: msg, content: btoa(unescape(encodeURIComponent(content))) };
-  if (sha) body.sha = sha;
-  var r = await fetch(url, {
-    method: 'PUT',
-    headers: { 'Authorization': 'token ' + tok, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  });
-  var data = await r.json();
-  if (!r.ok) throw new Error(data.message || 'HTTP ' + r.status);
-  return data;
-}
-
-// ── Publish ───────────────────────────────────────────────
-async function publish() {
-  var tok = getTok(); clrLog();
-  var btn = document.getElementById('pbtn');
-  btn.disabled = true; btn.innerHTML = '<span>⏳</span> పబ్లిష్ అవుతోంది...';
-  if (!tok) {
-    log('✗ Token నమోదు చేయండి', 'lerr');
-    btn.disabled = false; btn.innerHTML = '<span>🚀</span> GitHub లో పబ్లిష్ చేయి';
-    return;
-  }
-  var ts = new Date().toLocaleDateString('te-IN'), ok = true;
-  try {
-    log('⟳ index.html తయారు చేస్తున్నాం...', 'linf');
-    await ghPut(tok, 'index.html', mkIdx(), 'కవితలు అప్‌డేట్ (' + ts + ')');
-    log('✓ index.html పబ్లిష్ అయింది!', 'lok');
-  } catch(e) { log('✗ index.html: ' + e.message, 'lerr'); ok = false; }
-  try {
-    log('⟳ admin.html తయారు చేస్తున్నాం...', 'linf');
-    await ghPut(tok, 'admin.html', mkAdm(), 'Admin అప్‌డేట్ (' + ts + ')');
-    log('✓ admin.html పబ్లిష్ అయింది!', 'lok');
-  } catch(e) { log('✗ admin.html: ' + e.message, 'lerr'); ok = false; }
-  if (ok) {
-    log('🎉 విజయవంతం! 1–2 నిమిషాలలో లైవ్.', 'lok');
-    log('🌐 https://' + GH_USER + '.github.io/' + GH_REPO, 'lok');
-  }
-  btn.disabled = false; btn.innerHTML = '<span>🚀</span> GitHub లో పబ్లిష్ చేయి';
-}
-
-// ── Build index.html ──────────────────────────────────────
-// ITPL is the index template with "/*%%POEMS%%*/[]" as the poems placeholder
-function mkIdx() {
-  return ITPL.replace('/*%%POEMS%%*/[]', JSON.stringify(poems));
-}
-
-// ── Build admin.html ──────────────────────────────────────
-// Uses outerHTML + replaces the 3 marked data lines
-function mkAdm() {
-  var src = '<!DOCTYPE html>
-' + document.documentElement.outerHTML;
-  src = src.replace(
-    /var PIN = '1234';.*\/\/ @@PINMARK@@/,
-    "var PIN = '" + PIN + "';       // @@PINMARK@@"
-  );
-  src = src.replace(
-    /var SEED = [{"id": 1, "title": "\u0c28\u0c30 \u0c38\u0c3f\u0c02\u0c39 \u0c38\u0c4d\u0c24\u0c41\u0c24\u0c3f", "lines": ["\u0c1a\u0c24\u0c41\u0c30\u0c4d\u0c26\u0c3e\u0c35\u0c24\u0c3e\u0c30 \u0c2a\u0c41\u0c30\u0c41\u0c37\u0c41\u0c21\u0c41", "\u0c28\u0c30 \u0c38\u0c3f\u0c02\u0c39 \u0c38\u0c4d\u0c35\u0c30\u0c42\u0c2a\u0c41\u0c21\u0c41", "\u0c2d\u0c15\u0c4d\u0c24\u0c2a\u0c4d\u0c30\u0c39\u0c4d\u0c32\u0c3e\u0c26 \u0c35\u0c30\u0c26\u0c41\u0c21\u0c41", "\u0c2d\u0c35\u0c2c\u0c02\u0c27\u0c28 \u0c35\u0c3f\u0c2e\u0c41\u0c15\u0c4d\u0c24\u0c41\u0c21\u0c41", "\u0c38\u0c30\u0c4d\u0c35\u0c32\u0c4b\u0c15 \u0c2a\u0c3e\u0c32\u0c15\u0c41\u0c21\u0c41", "\u0c38\u0c3e\u0c27\u0c41 \u0c1c\u0c28 \u0c30\u0c15\u0c4d\u0c37\u0c15\u0c41\u0c28\u0c3f\u0c15\u0c3f", "\u0c1c\u0c2f\u0c2e\u0c41 \u0c1c\u0c2f\u0c2e\u0c41 ...."], "author": "\u0c15\u0c24\u0c4d\u0c24\u0c46\u0c30\u0c2a\u0c32\u0c4d\u0c32\u0c3f \u0c36\u0c4d\u0c30\u0c40\u0c28\u0c3f\u0c35\u0c3e\u0c38\u0c41\u0c32\u0c41 \u0c30\u0c46\u0c21\u0c4d\u0c21\u0c3f", "date": "30 \u0c0f\u0c2a\u0c4d\u0c30\u0c3f\u0c32\u0c4d 2026"}];.*\/\/ @@SEEDMARK@@/,
-    'var SEED = ' + JSON.stringify(poems) + ';       // @@SEEDMARK@@'
-  );
-  src = src.replace(
-    /var ITPL = "<!DOCTYPE html>\n<html lang=\"te\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>\u0c2a\u0c26\u0c4d\u0c2f \u0c2e\u0c3e\u0c32\u0c3f\u0c15 - \u0c15\u0c24\u0c4d\u0c24\u0c46\u0c30\u0c2a\u0c32\u0c4d\u0c32\u0c3f \u0c36\u0c4d\u0c30\u0c40\u0c28\u0c3f\u0c35\u0c3e\u0c38\u0c41\u0c32\u0c41 \u0c30\u0c46\u0c21\u0c4d\u0c21\u0c3f</title>\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link href=\"https://fonts.googleapis.com/css2?family=Tiro+Telugu:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap\" rel=\"stylesheet\">\n<style>\n*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}\n:root{--ink:#1c1310;--ink2:#4a3728;--ink3:#8a7060;--gold:#c9903a;--gold2:#e8b86d;--cream:#fdf8f0;--cream2:#f5ede0;--cream3:#ede0cc;--glass:rgba(255,252,247,.88);--shadow-lg:0 24px 80px rgba(28,19,16,.18);--shadow-sm:0 2px 12px rgba(28,19,16,.08);--radius:20px}\nbody{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}\nbody::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 15% 10%,rgba(201,144,58,.10) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at 85% 90%,rgba(201,144,58,.08) 0%,transparent 60%);pointer-events:none;z-index:0}\nheader{position:relative;z-index:10;text-align:center;padding:4rem 2rem 2.5rem;max-width:780px;margin:0 auto}\n.hbadge{display:inline-block;font-size:10px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);background:linear-gradient(135deg,rgba(201,144,58,.12),rgba(232,184,109,.08));border:1px solid rgba(201,144,58,.25);border-radius:100px;padding:6px 18px;margin-bottom:1.5rem}\n.horn{display:flex;align-items:center;justify-content:center;gap:12px;margin:.75rem 0 1.25rem}\n.horn .hl{height:1px;width:60px;background:linear-gradient(90deg,transparent,var(--gold2),transparent)}\n.horn .hd{width:6px;height:6px;background:var(--gold);transform:rotate(45deg);box-shadow:0 0 8px rgba(201,144,58,.5)}\n.htitle{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,48px);font-weight:700;line-height:1.15;color:var(--ink);letter-spacing:-.01em;margin-bottom:.6rem}\n.hsub{font-family:'Tiro Telugu',serif;font-size:16px;color:var(--ink3);font-style:italic}\n.hrule{width:100%;max-width:500px;height:1px;background:linear-gradient(90deg,transparent,var(--cream3) 20%,var(--gold2) 50%,var(--cream3) 80%,transparent);margin:2rem auto 0}\nmain{position:relative;z-index:10;max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem}\n.tabs{display:flex;gap:4px;background:var(--glass);backdrop-filter:blur(16px);border:1px solid rgba(201,144,58,.15);border-radius:100px;padding:5px;margin-bottom:2.5rem;box-shadow:var(--shadow-sm),inset 0 1px 0 rgba(255,255,255,.8)}\n.tab{flex:1;padding:10px 16px;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;text-align:center;cursor:pointer;color:var(--ink3);border:none;border-radius:100px;background:transparent;font-family:'DM Sans',sans-serif;transition:all .25s}\n.tab.on{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;box-shadow:0 4px 14px rgba(201,144,58,.4)}\n.book{background:var(--glass);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.9);border-radius:var(--radius);box-shadow:var(--shadow-lg),inset 0 1px 0 #fff;overflow:hidden;position:relative}\n.book::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold2),var(--gold),var(--gold2),transparent)}\n.page{display:none;padding:3.5rem 3rem 2.5rem;min-height:440px;flex-direction:column;justify-content:space-between;animation:fu .4s cubic-bezier(.4,0,.2,1)}\n.page.on{display:flex}\n@keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}\n.pctr{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:2rem}\n.pnum{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}\n.pln{height:1px;flex:1;max-width:40px;background:linear-gradient(90deg,transparent,var(--cream3))}\n.pln.r{background:linear-gradient(90deg,var(--cream3),transparent)}\n.ptitle{font-family:'Playfair Display',serif;font-size:clamp(18px,3vw,26px);font-weight:400;font-style:italic;color:var(--ink);text-align:center;margin-bottom:2rem;line-height:1.3}\n.pdiv{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 auto 2.5rem}\n.pdiv span{width:4px;height:4px;border-radius:50%;background:var(--gold2)}\n.pdiv span:first-child,.pdiv span:last-child{opacity:.4}\n.pbody{font-family:'Tiro Telugu',serif;font-size:clamp(18px,2.5vw,24px);line-height:2.2;color:var(--ink);text-align:center;flex:1}\n.pbody .ln{display:block}\n.pmeta{margin-top:2.5rem;display:flex;flex-direction:column;align-items:flex-end;gap:4px;padding-top:1.5rem;border-top:1px solid rgba(201,144,58,.12)}\n.pauth{font-family:'Tiro Telugu',serif;font-size:14px;color:var(--ink3);font-style:italic}\n.pdate{font-size:11px;color:var(--gold);letter-spacing:.08em}\n.nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 2.5rem;border-top:1px solid rgba(201,144,58,.1);background:linear-gradient(to bottom,transparent,rgba(245,237,224,.4))}\n.nbtn{background:none;border:1px solid rgba(201,144,58,.25);border-radius:100px;padding:8px 20px;font-size:12px;font-weight:500;cursor:pointer;color:var(--ink2);font-family:'DM Sans',sans-serif;transition:all .2s}\n.nbtn:hover:not(:disabled){background:linear-gradient(135deg,var(--gold),var(--gold2));border-color:transparent;color:#fff;box-shadow:0 4px 14px rgba(201,144,58,.35)}\n.nbtn:disabled{opacity:.25;cursor:default}\n.dots{display:flex;gap:6px;align-items:center}\n.dot{width:6px;height:6px;border-radius:50%;background:var(--cream3);transition:all .3s;cursor:pointer;border:none;padding:0}\n.dot.on{width:18px;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--gold2))}\n.toc{padding:2rem 2.5rem}\n.tocttl{font-size:10px;font-weight:500;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem}\n.toci{display:flex;align-items:center;gap:16px;padding:14px 8px;border-bottom:1px solid rgba(201,144,58,.08);cursor:pointer;transition:all .2s;border-radius:8px}\n.toci:last-child{border-bottom:none}\n.toci:hover{background:rgba(201,144,58,.05);padding-left:14px}\n.tocn{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--cream2),var(--cream3));border:1px solid rgba(201,144,58,.2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--gold);flex-shrink:0}\n.tocname{font-family:'Tiro Telugu',serif;font-size:18px;color:var(--ink);flex:1;transition:color .2s}\n.toci:hover .tocname{color:var(--gold)}\n.tocdt{font-size:11px;color:var(--ink3)}\n@media(max-width:600px){header{padding:3rem 1.25rem 2rem}.page{padding:2.5rem 1.5rem 2rem}.nav{padding:1rem 1.5rem}.toc{padding:1.5rem}}\n</style>\n</head>\n<body>\n<header>\n  <div class=\"hbadge\">\u0c15\u0c35\u0c3f\u0c24\u0c4d\u0c35 \u0c38\u0c02\u0c15\u0c32\u0c28\u0c02</div>\n  <div class=\"horn\"><div class=\"hl\"></div><div class=\"hd\"></div><div class=\"hl\"></div></div>\n  <h1 class=\"htitle\">\u0c2a\u0c26\u0c4d\u0c2f \u0c2e\u0c3e\u0c32\u0c3f\u0c15</h1>\n  <div class=\"hsub\">\u0c15\u0c24\u0c4d\u0c24\u0c46\u0c30\u0c2a\u0c32\u0c4d\u0c32\u0c3f \u0c36\u0c4d\u0c30\u0c40\u0c28\u0c3f\u0c35\u0c3e\u0c38\u0c41\u0c32\u0c41 \u0c30\u0c46\u0c21\u0c4d\u0c21\u0c3f</div>\n  <div class=\"hrule\"></div>\n</header>\n<main>\n  <div class=\"tabs\">\n    <button class=\"tab on\" onclick=\"showTab('read')\">\u0c1a\u0c26\u0c35\u0c41</button>\n    <button class=\"tab\" onclick=\"showTab('toc')\">\u0c35\u0c3f\u0c37\u0c2f \u0c38\u0c42\u0c1a\u0c3f\u0c15</button>\n  </div>\n  <div id=\"vread\">\n    <div class=\"book\">\n      <div id=\"pages\"></div>\n      <div class=\"nav\">\n        <button class=\"nbtn\" id=\"bp\" onclick=\"go(-1)\">\u2190 \u0c35\u0c46\u0c28\u0c41\u0c15</button>\n        <div class=\"dots\" id=\"dots\"></div>\n        <button class=\"nbtn\" id=\"bn\" onclick=\"go(1)\">\u0c2e\u0c41\u0c02\u0c26\u0c41 \u2192</button>\n      </div>\n    </div>\n  </div>\n  <div id=\"vtoc\" style=\"display:none\">\n    <div class=\"book\"><div class=\"toc\"><div class=\"tocttl\">\u0c05\u0c28\u0c4d\u0c28\u0c3f \u0c15\u0c35\u0c3f\u0c24\u0c32\u0c41</div><div id=\"toclist\"></div></div></div>\n  </div>\n</main>\n<script>\nvar poems=/*%%POEMS%%*/[];\nvar cur=1;\nfunction esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;')}\nfunction build(){\n  var c=document.getElementById('pages');c.innerHTML='';\n  poems.forEach(function(p,i){\n    var d=document.createElement('div');d.className='page'+(i===0?' on':'');d.id='p'+(i+1);\n    var lines=p.lines.map(function(l){var s=document.createElement('span');s.className='ln';s.textContent=l;return s.outerHTML}).join('');\n    d.innerHTML='<div><div class=\"pctr\"><div class=\"pln\"></div><span class=\"pnum\">'+String(i+1).padStart(2,'0')+' / '+String(poems.length).padStart(2,'0')+'</span><div class=\"pln r\"></div></div>'+(p.title?'<div class=\"ptitle\">'+esc(p.title)+'</div>':'')+'<div class=\"pdiv\"><span></span><span></span><span></span><span></span><span></span></div><div class=\"pbody\">'+lines+'</div></div><div class=\"pmeta\"><div class=\"pauth\">\u2014 '+esc(p.author)+'</div>'+(p.date?'<div class=\"pdate\">'+esc(p.date)+'</div>':'')+'</div>';\n    c.appendChild(d);\n  });\n  cur=1;buildDots();nav();\n}\nfunction buildDots(){\n  var el=document.getElementById('dots');el.innerHTML='';\n  poems.forEach(function(_,i){var b=document.createElement('button');b.className='dot'+(i===0?' on':'');b.addEventListener('click',(function(n){return function(){jump(n+1)}})(i));el.appendChild(b)});\n}\nfunction buildToc(){\n  var el=document.getElementById('toclist');el.innerHTML='';\n  poems.forEach(function(p,i){\n    var item=document.createElement('div');item.className='toci';\n    var n=document.createElement('div');n.className='tocn';n.textContent=i+1;\n    var nm=document.createElement('span');nm.className='tocname';nm.textContent=p.title||'(\u0c36\u0c40\u0c30\u0c4d\u0c37\u0c3f\u0c15 \u0c32\u0c47\u0c26\u0c41)';\n    var dt=document.createElement('span');dt.className='tocdt';dt.textContent=p.date||'';\n    item.appendChild(n);item.appendChild(nm);item.appendChild(dt);\n    item.addEventListener('click',(function(n){return function(){jump(n+1);showTab('read')}})(i));\n    el.appendChild(item);\n  });\n}\nfunction jump(n){\n  var p=document.getElementById('p'+cur);if(p)p.classList.remove('on');\n  cur=n;var nx=document.getElementById('p'+cur);if(nx)nx.classList.add('on');\n  document.querySelectorAll('.dot').forEach(function(d,i){d.classList.toggle('on',i===n-1)});\n  nav();\n}\nfunction go(d){var n=cur+d;if(n>=1&&n<=poems.length)jump(n)}\nfunction nav(){document.getElementById('bp').disabled=cur===1;document.getElementById('bn').disabled=cur===poems.length}\nfunction showTab(t){\n  document.getElementById('vread').style.display=t==='read'?'block':'none';\n  document.getElementById('vtoc').style.display=t==='toc'?'block':'none';\n  document.querySelectorAll('.tab').forEach(function(el,i){el.classList.toggle('on',(t==='read'&&i===0)||(t==='toc'&&i===1))});\n}\ndocument.addEventListener('keydown',function(e){if(document.getElementById('vread').style.display!=='none'){if(e.key==='ArrowRight')go(1);if(e.key==='ArrowLeft')go(-1)}});\nbuild();buildToc();\n</script>\n</body>\n</html>";.*\/\/ @@ITPLMARK@@/,
-    'var ITPL = ' + JSON.stringify(ITPL) + ';       // @@ITPLMARK@@'
-  );
-  return src;
-}
+var PIN = "1234"; // @@PINMARK@@
+var SEED = [{"id":1,"title":"నర సింహ స్తుతి","lines":["చతుర్దావతార పురుషుడు","నర సింహ స్వరూపుడు","భక్తప్రహ్లాద వరదుడు","భవబంధన విముక్తుడు","సర్వలోక పాలకుడు","సాధు జన రక్షకునికి","జయము జయము ...."],"author":"కత్తెరపల్లి శ్రీనివాసులు రెడ్డి","date":"30 ఏప్రిల్ 2026"}]; // @@SEEDMARK@@
+var GH_USER='dommarajusravan',GH_REPO='srinivas-katterapalli',BRANCH='main',TOKEN_KEY='kavithalu_github_token',DRAFT_KEY='kavithalu_poems_draft';var poems=loadPoems(),editIndex=-1;
+function escapeHtml(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}
+function safeJson(d){return JSON.stringify(d).replace(/</g,'\\u003c').replace(/>/g,'\\u003e').replace(/&/g,'\\u0026')}
+function normalisePoem(p,i){return {id:p.id||Date.now()+i,title:p.title||'',lines:Array.isArray(p.lines)?p.lines:String(p.body||'').split('\n').map(function(x){return x.trim()}).filter(Boolean),author:p.author||'కత్తెరపల్లి శ్రీనివాసులు రెడ్డి',date:p.date||''}}
+function loadPoems(){try{var d=JSON.parse(localStorage.getItem(DRAFT_KEY)||'null');if(Array.isArray(d))return d.map(normalisePoem)}catch(e){}return Array.isArray(SEED)?SEED.map(normalisePoem):[]}
+function persistDraft(){localStorage.setItem(DRAFT_KEY,JSON.stringify(poems))}
+function showBanner(id){var e=document.getElementById(id);e.classList.add('show');setTimeout(function(){e.classList.remove('show')},2600)}
+function unlockAdmin(){var i=document.getElementById('pin-box');if(i.value===PIN){document.getElementById('gate').style.display='none';document.getElementById('panel').style.display='block';document.getElementById('token').value=localStorage.getItem(TOKEN_KEY)||'';renderPoems();i.value=''}else document.getElementById('pin-error').textContent='తప్పు PIN. మళ్ళీ ప్రయత్నించండి.'}
+function saveToken(){localStorage.setItem(TOKEN_KEY,document.getElementById('token').value.trim())}function getToken(){return document.getElementById('token').value.trim()||localStorage.getItem(TOKEN_KEY)||''}function toggleToken(){var i=document.getElementById('token');i.type=i.type==='password'?'text':'password'}function setConn(st,txt){document.getElementById('conn-light').className='light'+(st?' '+st:'');document.getElementById('conn-text').textContent=txt}
+async function githubRequest(tok,url,opt){opt=opt||{};opt.headers=Object.assign({'Authorization':'token '+tok,'Accept':'application/vnd.github.v3+json'},opt.headers||{});var r=await fetch(url,opt),t=await r.text(),d=t?JSON.parse(t):null;if(!r.ok)throw new Error((d&&d.message)||('HTTP '+r.status));return d}
+async function testConnection(){var t=getToken();if(!t){setConn('red','Token నమోదు చేయండి');return}setConn('yellow','పరీక్షిస్తున్నాం...');try{var r=await githubRequest(t,'https://api.github.com/repos/'+GH_USER+'/'+GH_REPO);setConn('green','✓ Repo access OK: '+r.full_name)}catch(e){setConn('red','✗ '+e.message)}}
+function renderPoems(){var l=document.getElementById('poem-list');document.getElementById('poem-count').textContent=poems.length+' కవితలు';l.innerHTML='';if(!poems.length){l.innerHTML='<div class="empty">కవితలు ఏవీ లేవు</div>';return}poems.forEach(function(p,i){var r=document.createElement('div');r.className='poem-row';r.innerHTML='<div class="num">'+(i+1)+'</div><div class="pinfo"><div class="ptitle">'+escapeHtml(p.title||'(శీర్షిక లేదు)')+'</div><div class="pdate">'+escapeHtml(p.date||'')+'</div></div><div class="actions"><button class="btn edit" onclick="openEditor('+i+')">✏️ సవరించు</button><button class="btn danger" onclick="deletePoem('+i+')">తొలగించు</button></div>';l.appendChild(r)})}
+function addPoem(){var t=document.getElementById('new-title').value.trim(),b=document.getElementById('new-body').value.trim(),d=document.getElementById('new-date').value.trim();if(!b){alert('కవిత రాయండి!');return}poems.push({id:Date.now(),title:t,lines:b.split('\n').map(function(x){return x.trim()}).filter(Boolean),author:'కత్తెరపల్లి శ్రీనివాసులు రెడ్డి',date:d});persistDraft();renderPoems();clearForm();showBanner('add-banner')}
+function clearForm(){document.getElementById('new-title').value='';document.getElementById('new-body').value='';document.getElementById('new-date').value=''}
+function deletePoem(i){if(poems.length<=1){alert('కనీసం ఒక కవిత ఉండాలి!');return}if(!confirm('ఈ కవిత తొలగించాలా?'))return;poems.splice(i,1);persistDraft();renderPoems()}
+function openEditor(i){editIndex=i;var p=poems[i];document.getElementById('edit-title').value=p.title||'';document.getElementById('edit-body').value=(p.lines||[]).join('\n');document.getElementById('edit-date').value=p.date||'';document.getElementById('edit-banner').classList.remove('show');document.getElementById('edit-overlay').classList.add('open');document.body.style.overflow='hidden'}
+function closeEditor(){document.getElementById('edit-overlay').classList.remove('open');document.body.style.overflow='';editIndex=-1}
+function saveEdit(){if(editIndex<0)return;var t=document.getElementById('edit-title').value.trim(),b=document.getElementById('edit-body').value.trim(),d=document.getElementById('edit-date').value.trim();if(!b){alert('కవిత రాయండి!');return}poems[editIndex]=Object.assign({},poems[editIndex],{title:t,lines:b.split('\n').map(function(x){return x.trim()}).filter(Boolean),date:d});persistDraft();renderPoems();showBanner('edit-banner')}
+function changePin(){var n=document.getElementById('new-pin').value.trim(),c=document.getElementById('confirm-pin').value.trim(),m=document.getElementById('pin-change-msg');if(!n||n.length<4){m.style.color='var(--red)';m.textContent='కనీసం 4 అంకెలు రాయండి';return}if(n!==c){m.style.color='var(--red)';m.textContent='రెండు PIN లు సమానంగా లేవు';return}PIN=n;m.style.color='var(--green)';m.textContent='PIN మార్చబడింది. పబ్లిష్ చేసిన తర్వాత శాశ్వతంగా సేవ్ అవుతుంది.';document.getElementById('new-pin').value='';document.getElementById('confirm-pin').value=''}
+function log(msg,cls){var b=document.getElementById('log');b.style.display='block';var s=document.createElement('span');s.className=cls||'';s.textContent=msg;b.appendChild(s);b.scrollTop=b.scrollHeight}function clearLog(){var b=document.getElementById('log');b.innerHTML='';b.style.display='none'}
+function fromBase64(x){var bin=atob(x.replace(/\s/g,'')),bytes=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);return new TextDecoder().decode(bytes)}function toBase64(text){var bytes=new TextEncoder().encode(text),bin='';for(var i=0;i<bytes.length;i++)bin+=String.fromCharCode(bytes[i]);return btoa(bin)}
+async function readFile(tok,path){var d=await githubRequest(tok,'https://api.github.com/repos/'+GH_USER+'/'+GH_REPO+'/contents/'+encodeURIComponent(path)+'?ref='+encodeURIComponent(BRANCH));return {content:fromBase64(d.content),sha:d.sha}}
+async function writeFile(tok,path,content,sha,msg){return githubRequest(tok,'https://api.github.com/repos/'+GH_USER+'/'+GH_REPO+'/contents/'+encodeURIComponent(path),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:msg,content:toBase64(content),sha:sha,branch:BRANCH})})}
+function replaceMarkedLine(src,marker,repl){var escaped=marker.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),re=new RegExp('^.*//\\s*'+escaped+'.*$','m');if(!re.test(src))throw new Error('Marker not found: '+marker);return src.replace(re,repl+' // '+marker)}
+function buildPublishedPoems(){return poems.map(normalisePoem).filter(function(p){return p.lines.length>0})}
+async function publish(){var tok=getToken();clearLog();if(!tok){log('✗ Token నమోదు చేయండి','bad');return}var btn=document.getElementById('publish-btn');btn.disabled=true;btn.textContent='⏳ పబ్లిష్ అవుతోంది...';var stamp=new Date().toLocaleDateString('te-IN'),next=buildPublishedPoems();if(!next.length){log('✗ కనీసం ఒక కవిత ఉండాలి','bad');btn.disabled=false;btn.textContent='🚀 GitHub లో పబ్లిష్ చేయి';return}try{log('⟳ index.html చదువుతున్నాం...','info');var ix=await readFile(tok,'index.html');var ixSrc=replaceMarkedLine(ix.content,'@@POEMSMARK@@','var poems = '+safeJson(next)+';');log('⟳ index.html update చేస్తున్నాం...','info');await writeFile(tok,'index.html',ixSrc,ix.sha,'Update poems in index ('+stamp+')');log('✓ index.html పబ్లిష్ అయింది','ok');log('⟳ admin.html చదువుతున్నాం...','info');var ad=await readFile(tok,'admin.html');var adSrc=replaceMarkedLine(ad.content,'@@PINMARK@@','var PIN = '+JSON.stringify(PIN)+';');adSrc=replaceMarkedLine(adSrc,'@@SEEDMARK@@','var SEED = '+safeJson(next)+';');log('⟳ admin.html update చేస్తున్నాం...','info');await writeFile(tok,'admin.html',adSrc,ad.sha,'Update admin seed data ('+stamp+')');log('✓ admin.html పబ్లిష్ అయింది','ok');poems=next;persistDraft();renderPoems();log('🎉 విజయవంతం! GitHub Pages లో 1–2 నిమిషాలలో కనిపిస్తుంది.','ok');log('🌐 https://'+GH_USER+'.github.io/'+GH_REPO,'ok')}catch(e){log('✗ Publish failed: '+e.message,'bad')}finally{btn.disabled=false;btn.textContent='🚀 GitHub లో పబ్లిష్ చేయి'}}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeEditor()});
 </script>
 </body>
 </html>
